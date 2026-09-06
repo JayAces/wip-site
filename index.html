@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warrior Intelligence Project — Sickle Cell Crisis Tracker</title>
+  <meta name="description" content="Community-owned sickle cell crisis tracker. Warriors log crises anonymously — building evidence that changes outcomes. 115+ Warriors across 26 states." />
+  <meta name="keywords" content="sickle cell disease, crisis tracker, sickle cell data, community health, pain crisis, ER experience, sickle cell advocacy, health equity, patient-reported outcomes, sickle cell warriors" />
+  <meta name="author" content="Jason Robert Moore, Kindred Compass Holdings LLC" />
+  <link rel="canonical" href="https://warriorintelligenceproject.org/" />
+
+  <!-- SEO: Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://warriorintelligenceproject.org/" />
+  <meta property="og:title" content="Warrior Intelligence Project: Our Pain. Our Data. Our Power." />
+  <meta property="og:description" content="Sickle cell crisis tracker, community-owned. Warriors log crises anonymously — building evidence that changes ER outcomes." />
+  <meta property="og:image" content="https://warriorintelligenceproject.org/wip_site_images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Warrior Intelligence Project" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- SEO: Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Warrior Intelligence Project: Our Pain. Our Data. Our Power." />
+  <meta name="twitter:description" content="A community-owned sickle cell crisis tracker. 115+ Warriors across 26 states logging pain crises, triggers, and ER experiences anonymously." />
+  <meta name="twitter:image" content="https://warriorintelligenceproject.org/wip_site_images/og-image.jpg" />
+
+  <!-- AI Search Optimization -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+  <link rel="preconnect" href="https://tally.so" crossorigin />
+  <link rel="dns-prefetch" href="https://tally.so" />
+
+  <!-- Tally embed script -->
+  <script async src="https://tally.so/widgets/embed.js"></script>
+
+
+  <!-- SEO: JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://warriorintelligenceproject.org/#organization",
+        "name": "Warrior Intelligence Project",
+        "alternateName": "WIP",
+        "url": "https://warriorintelligenceproject.org",
+        "description": "A community-owned real-time sickle cell crisis tracking platform. Warriors anonymously log pain crises, triggers, and ER experiences to build longitudinal evidence that changes healthcare outcomes.",
+        "foundingDate": "2025",
+        "founder": {
+          "@type": "Person",
+          "name": "Jason Robert Moore",
+          "jobTitle": "Founder & Community Health Worker"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Kindred Compass Holdings, LLC"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "info@kindredcompassholdings.com",
+          "contactType": "general inquiry"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://warriorintelligenceproject.org/#website",
+        "url": "https://warriorintelligenceproject.org",
+        "name": "Warrior Intelligence Project",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the Warrior Intelligence Project?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Warrior Intelligence Project (WIP) is a community-owned sickle cell crisis tracking platform. Warriors anonymously log their pain crises, triggers, ER experiences, and protocol adherence in under 3 minutes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the Warrior Intelligence Tracker anonymous?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. WIP requires no accounts, no medical records, and no gatekeepers. Submissions are 100% anonymous and consent-based. Your data is never shared with insurers, hospitals, or employers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What has the Warrior Intelligence Project discovered?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In 63 days, Warriors produced findings that traditional research took years to surface. 23% of Warriors identified menstrual cycle as a primary trigger absent from standard ER protocols. 70% treated and released reported ineffective outcomes. A 4x better outcome correlated with admission vs. release."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who owns the data collected by WIP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Warriors own their data. WIP is governed by a Governance Council with elected Warrior voting members. Your data is never sold, never shared with insurers or employers, and you can delete it at any time."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0B1D3A;
+      --navy-mid:   #162D4E;
+      --navy-light: #1E3A5F;
+      --white:      #FFFFFF;
+      --off-white:  #F8F9FB;
+      --text-dark:  #111827;
+      --text-mid:   #374151;
+      --text-light: #6B7280;
+      --amber:      #F0B429;
+      --amber-dark: #D97706;
+      --amber-bg:   #FFFBEB;
+      --red:        #B91C1C;
+      --red-mid:    #DC2626;
+      --red-bg:     #FFF5F5;
+      --border-light: #E5E7EB;
+      --border-dark:  rgba(255,255,255,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text-dark);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+    }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(11,29,58,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .nav-logo { font-size: 1.05rem; font-weight: 900; letter-spacing: 0.04em; text-decoration: none; color: #FFFFFF; display: flex; align-items: center; gap: 0.4rem; }
+    .nav-logo .wip-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); border: 1px solid rgba(240,180,41,0.35); padding: 0.2rem 0.6rem; border-radius: 100px; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { background: var(--amber); color: var(--navy) !important; font-weight: 800; font-size: 0.85rem; padding: 0.6rem 1.4rem; border-radius: 6px; text-decoration: none; letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: #FBBF24 !important; transform: translateY(-1px); }
+    /* HERO */
+    .hero { background: linear-gradient(180deg, rgba(11,29,58,0.93), rgba(11,29,58,0.88)), url('./wip_site_images/female_hero.jpg') center 20%/cover no-repeat; min-height: 100vh; display: flex; align-items: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 20% 50%, rgba(240,180,41,0.09) 0%, transparent 65%), radial-gradient(ellipse 40% 40% at 85% 80%, rgba(185,28,28,0.07) 0%, transparent 60%); pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; position: relative; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); border: 1px solid rgba(240,180,41,0.35); padding: 0.4rem 1.1rem; border-radius: 100px; margin-bottom: 2rem; }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #FFFFFF; margin-bottom: 1.5rem; }
+    .hero h1 .line-gold { color: var(--amber); display: block; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.65); max-width: 460px; margin-bottom: 2.25rem; line-height: 1.75; }
+    .hero-trust { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-bottom: 2rem; }
+    .trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; }
+    .trust-dot { width: 5px; height: 5px; background: var(--amber); border-radius: 50%; opacity: 0.6; }
+    .privacy-line { font-size: 0.72rem; color: rgba(255,255,255,0.3); line-height: 1.6; max-width: 400px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.25rem; }
+    .privacy-line strong { color: rgba(255,255,255,0.5); }
+    /* FORM CARD */
+    .form-card { background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06); }
+    .form-card-header { background: var(--amber); padding: 1.1rem 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .pulse { width: 10px; height: 10px; background: var(--navy); border-radius: 50%; position: relative; flex-shrink: 0; }
+    .pulse::after { content: ''; position: absolute; inset: -4px; border: 2px solid var(--navy); border-radius: 50%; opacity: 0.4; animation: ping 1.8s cubic-bezier(0,0,0.2,1) infinite; }
+    @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
+    .form-card-header-text { flex: 1; }
+    .form-card-header-text strong { display: block; font-size: 0.88rem; font-weight: 900; color: var(--navy); }
+    .form-card-header-text span { font-size: 0.68rem; color: rgba(11,29,58,0.55); letter-spacing: 0.04em; }
+    .form-privacy-banner { background: #F0FDF4; border-bottom: 1px solid #BBF7D0; padding: 0.6rem 1.5rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; color: #166534; font-weight: 600; letter-spacing: 0.03em; }
+    .form-privacy-banner svg { flex-shrink: 0; }
+    .tally-embed-wrap { background: #fff; min-height: 480px; }
+    .dashboard-reminder-banner { background: var(--amber-bg); border-top: 1px solid rgba(217,119,6,0.25); padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; }
+    .dashboard-reminder-banner svg { flex-shrink: 0; color: var(--amber-dark); }
+    .dashboard-reminder-banner p { flex: 1; min-width: 220px; margin: 0; font-size: 0.82rem; line-height: 1.5; color: #78350F; }
+    .dashboard-reminder-banner p strong { color: #78350F; }
+    .dashboard-reminder-banner a { white-space: nowrap; background: var(--amber-dark); color: #FFFFFF; font-weight: 700; font-size: 0.78rem; letter-spacing: 0.02em; padding: 0.55rem 1.1rem; border-radius: 6px; text-decoration: none; transition: background 0.2s; }
+    .dashboard-reminder-banner a:hover { background: #B45309; }
+    .tally-embed-wrap iframe { display: block; border: none; }
+    /* STATS */
+    .stats { background: var(--white); border-bottom: 1px solid var(--border-light); }
+    .stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+    .stat { text-align: center; padding: 2.5rem 1.25rem; border-right: 1px solid var(--border-light); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 900; color: var(--navy); line-height: 1; display: block; letter-spacing: -0.02em; }
+    .stat-accent { color: var(--red-mid); }
+    .stat-label { font-size: 0.72rem; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.5rem; display: block; font-weight: 600; }
+    .stats-source { max-width: 1100px; margin: 0 auto; padding: 0.6rem 1.25rem 0.8rem; font-size: 0.68rem; color: #9CA3AF; border-top: 1px solid var(--border-light); }
+
+    /* YOUNG WARRIORS SECTION */
+    .young-warriors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .warrior-photo { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 12px 48px rgba(0,0,0,0.15); }
+    .warrior-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* HERO IMAGE */
+    .hero-image { max-width: 420px; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.2); }
+    .hero-image img { width: 100%; height: auto; display: block; }
+
+    /* SECTION IMAGES */
+    .section-image-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .section-image-card { border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .section-image-card img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 900px) { .young-warriors { grid-template-columns: repeat(2, 1fr); } .section-image-row { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .section-image-row { grid-template-columns: 1fr; } .young-warriors { grid-template-columns: 1fr; } }
+
+    .banner-image { width: 100%; border-radius: 12px; overflow: hidden; margin-top: 3rem; aspect-ratio: 21/9; box-shadow: 0 16px 48px rgba(0,0,0,0.18); }
+    .banner-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .section-caption { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-light); margin-top: 0.9rem; text-align: center; }
+    .section-caption-light { color: rgba(255,255,255,0.4); }
+    .cbo-strip-photo { position: relative; }
+    .cbo-strip-photo::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(248,249,251,0.93), rgba(248,249,251,0.97)), url('./wip_site_images/empty_porch_chair_dual.jpg') center/cover no-repeat; z-index: 0; }
+    .cbo-strip-photo .cbo-inner { position: relative; z-index: 1; }
+
+    /* SECTIONS */
+    .section-light { background: var(--white); padding: 6rem 1.5rem; }
+    .section-gray  { background: var(--off-white); padding: 6rem 1.5rem; }
+    .section-dark  { background: var(--navy); padding: 6rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
+    .eyebrow-amber { color: var(--amber-dark); } .eyebrow-navy { color: var(--navy); } .eyebrow-white { color: var(--amber); } .eyebrow-red { color: var(--red); }
+    h2 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.25rem; }
+    h2.light { color: #FFFFFF; }
+    .lead { font-size: 1.05rem; line-height: 1.8; margin-bottom: 3rem; max-width: 640px; }
+    .lead-dark { color: var(--text-mid); } .lead-light { color: rgba(255,255,255,0.7); }
+    .divider { width: 48px; height: 3px; background: var(--amber); border-radius: 2px; margin: 0 0 2rem 0; }
+    .divider-center { margin: 0 auto 2rem; }
+    /* PROBLEM */
+    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .problem-card { background: var(--white); border: 1px solid var(--border-light); border-top: 3px solid var(--red-mid); border-radius: 8px; padding: 2rem; }
+    .problem-card blockquote { font-style: italic; font-size: 1rem; color: var(--text-dark); line-height: 1.75; margin-bottom: 1.25rem; }
+    .problem-card blockquote::before { content: '"'; font-size: 2.5rem; color: var(--red-mid); line-height: 0.5; display: block; margin-bottom: 0.75rem; font-style: normal; }
+    .problem-card cite { font-style: normal; font-size: 0.72rem; color: var(--text-light); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+    .failure-list { margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .failure-item { background: var(--red-bg); border-left: 3px solid var(--red-mid); padding: 1.25rem 1.5rem; border-radius: 0 6px 6px 0; }
+    .failure-item h4 { font-size: 0.9rem; font-weight: 800; color: var(--red); margin-bottom: 0.35rem; }
+    .failure-item p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
+
+    /* STEPS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .step { background: var(--white); border: 1px solid var(--border-light); border-radius: 8px; padding: 2.25rem; transition: box-shadow 0.2s, transform 0.2s; }
+    .step:hover { box-shadow: 0 8px 32px rgba(11,29,58,0.1); transform: translateY(-3px); }
+    .step-num { width: 2.5rem; height: 2.5rem; background: var(--navy); color: var(--amber); font-size: 0.9rem; font-weight: 900; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+    .step h3 { font-size: 1.1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.6rem; }
+    .step p  { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+    /* DATA */
+    .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .data-card { background: var(--navy-mid); border: 1px solid var(--border-dark); border-radius: 8px; padding: 2rem 1.75rem; }
+    .data-card .big { font-size: 2.75rem; font-weight: 900; color: var(--amber); line-height: 1; display: block; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+    .data-card .lbl { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.5; }
+    .data-note { margin-top: 2rem; font-size: 0.75rem; color: rgba(255,255,255,0.3); line-height: 1.6; max-width: 640px; }
+    .data-card .title { font-size: 1.3rem; font-weight: 900; line-height: 1.2; display: block; letter-spacing: -0.01em; margin-bottom: 0.75rem; word-break: break-word; }
+    .badge-label { display: inline-flex; align-items: center; padding: 0.4rem 0.9rem; background: var(--navy); color: var(--amber); font-size: 0.8rem; font-weight: 800; border-radius: 999px; margin-bottom: 1.25rem; white-space: nowrap; }
+
+    /* LOG CTA */
+    .log-band { background: var(--amber); padding: 5rem 1.5rem; text-align: center; }
+    .log-band h2 { color: var(--navy); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    .log-band p  { color: rgba(11,29,58,0.7); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.25rem; line-height: 1.7; }
+    .btn-navy { display: inline-block; background: var(--navy); color: #FFFFFF; font-weight: 800; font-size: 1rem; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(11,29,58,0.3); }
+    .btn-navy:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(11,29,58,0.4); }
+
+    /* CBO */
+    .cbo-strip { background: var(--off-white); border-top: 1px solid var(--border-light); padding: 4.5rem 1.5rem; position: relative; overflow: hidden; }
+    .cbo-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .cbo-inner h3 { font-size: 1.5rem; font-weight: 900; color: var(--text-dark); margin-bottom: 0.75rem; }
+    .cbo-inner p  { font-size: 0.95rem; color: var(--text-mid); margin-bottom: 1.75rem; line-height: 1.7; }
+    .btn-outline-navy { display: inline-block; border: 2px solid var(--navy); color: var(--navy); font-weight: 800; font-size: 0.9rem; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
+    .btn-outline-navy:hover { background: var(--navy); color: #fff; }
+
+    /* FOOTER */
+    footer { background: var(--navy); border-top: 1px solid var(--border-dark); padding: 2.75rem 1.5rem; text-align: center; }
+    .footer-name { font-size: 1rem; font-weight: 900; color: #fff; margin-bottom: 0.35rem; letter-spacing: 0.04em; }
+    .footer-sub  { font-size: 0.7rem; color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 700; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); line-height: 1.7; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; gap: 3rem; text-align: center; } .hero-sub { max-width: 100%; } .hero-trust { justify-content: center; } .privacy-line { margin: 0 auto; text-align: left; } .hero { padding: 7rem 1.5rem 4rem; } }
+    @media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } .stat { border-right: none; border-bottom: 1px solid var(--border-light); } .stat:last-child { border-bottom: none; } .nav-links { display: none; } }
+    @media (max-width: 480px) { .stats-inner { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
+
+    /* EXPLAINER VIDEO */
+    .explainer-video-wrap { display: flex; flex-direction: column; align-items: center; margin: 0 auto 3rem; max-width: 360px; }
+    .explainer-video-frame { position: relative; width: 100%; max-width: 340px; border-radius: 2rem; overflow: hidden; background: #0B1426; box-shadow: 0 24px 64px rgba(11,29,58,0.25), 0 0 0 4px rgba(255,255,255,0.06); }
+    .explainer-video-frame video { display: block; width: 100%; height: auto; border-radius: 2rem; }
+    .explainer-video-caption { margin-top: 1.25rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); text-align: center; font-weight: 600; }
+    @media (max-width: 480px) { .explainer-video-wrap { max-width: 280px; } .explainer-video-frame { max-width: 100%; border-radius: 1.5rem; } .explainer-video-frame video { border-radius: 1.5rem; } }
+
+    /* ── GHOST WORD ACCENTS & SECTION DEPTH ─────────────────────────────── */
+    /* Mirrors the values.html design language: oversized ghost words + depth */
+    .section-light, .section-gray, .section-dark { position: relative; overflow: hidden; }
+    .log-band { position: relative; overflow: hidden; }
+
+    /* Radial gradient depth on dark sections (matches values-hero treatment) */
+    .section-dark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 15% 70%, rgba(240,180,41,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 45% at 85% 15%, rgba(185,28,28,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Lift all container content above pseudo-elements */
+    .container { position: relative; z-index: 1; }
+
+    /* Ghost background words — one anchor per major section */
+    #problem::after {
+      content: 'CRISIS';
+      position: absolute;
+      bottom: -0.12em; right: -0.04em;
+      font-size: clamp(7rem, 20vw, 17rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(11,29,58,0.038);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    #how::after {
+      content: 'STEPS';
+      position: absolute;
+      bottom: -0.12em; right: -0.04em;
+      font-size: clamp(7rem, 20vw, 17rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(11,29,58,0.032);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    #young-warriors::after {
+      content: 'WARRIORS';
+      position: absolute;
+      bottom: -0.12em; right: -0.04em;
+      font-size: clamp(4rem, 12vw, 11rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(11,29,58,0.032);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    #data::after {
+      content: 'EVIDENCE';
+      position: absolute;
+      bottom: -0.12em; right: -0.04em;
+      font-size: clamp(4rem, 12vw, 11rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.028);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .log-band::after {
+      content: 'POWER';
+      position: absolute;
+      bottom: -0.12em; right: -0.04em;
+      font-size: clamp(7rem, 20vw, 17rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(11,29,58,0.07);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Designed-by credit */
+    .footer-designed-by {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 0.1em;
+      margin-top: 0.6rem;
+    }
+
+    /* ── PRESS — EDITORIAL ──────────────────────────────────────────────── */
+    .press-wrap { max-width: 820px; margin: 0 auto; }
+    .press-feature { position: relative; padding: 2rem 0 0; }
+    .press-deco-quote {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(5rem, 16vw, 11rem);
+      line-height: 0.75;
+      color: var(--amber);
+      opacity: 0.16;
+      position: absolute;
+      top: 0; left: -0.06em;
+      pointer-events: none;
+      user-select: none;
+      font-weight: 900;
+    }
+    .press-blockquote {
+      font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1.32;
+      letter-spacing: -0.025em;
+      color: var(--navy);
+      font-style: normal;
+      margin: 0;
+      padding: 0;
+    }
+    .press-rule { width: 44px; height: 3px; background: var(--amber); border-radius: 2px; margin: 1.75rem 0 1.5rem; }
+    .press-attribution {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .press-source-stack { display: flex; flex-direction: column; gap: 0.45rem; }
+    .press-pub-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.63rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber-dark);
+      border: 1.5px solid rgba(217,119,6,0.35);
+      padding: 0.28rem 0.8rem;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .press-article-title { font-size: 0.9rem; color: var(--text-mid); font-style: italic; line-height: 1.5; max-width: 460px; margin: 0; }
+    .press-pub-date { font-size: 0.68rem; color: var(--text-light); letter-spacing: 0.05em; }
+    .press-read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--navy);
+      padding-bottom: 0.1rem;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      align-self: flex-end;
+    }
+    .press-read-link:hover { color: var(--amber-dark); border-color: var(--amber-dark); }
+    .press-divider { border: none; border-top: 1px solid var(--border-light); margin: 3rem 0 1.75rem; }
+    .press-footer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .press-future-note { font-size: 0.75rem; color: var(--text-light); line-height: 1.65; max-width: 420px; margin: 0; }
+    .press-media-contact { font-size: 0.75rem; color: var(--text-light); text-align: right; margin: 0; }
+    .press-media-contact strong { display: block; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.2rem; }
+    .press-media-contact a { color: var(--navy); font-weight: 700; text-decoration: none; }
+    .press-media-contact a:hover { color: var(--amber-dark); }
+    @media (max-width: 600px) { .press-read-link { align-self: flex-start; } .press-media-contact { text-align: left; } }
+    #press::after {
+      content: 'VOICE';
+      position: absolute;
+      bottom: -0.12em; right: -0.04em;
+      font-size: clamp(7rem, 20vw, 17rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: rgba(11,29,58,0.022);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="#">
+      Warrior Intelligence Project
+      <span class="wip-label">WIP</span>
+    </a>
+    <div class="nav-links">
+      <a href="#problem">The Problem</a>
+      <a href="#how">How It Works</a>
+      <a href="#data">The Data</a>
+      <a href="https://warrior-intelligence-dashboard.vercel.app" target="_blank" rel="noopener">Live Dashboard</a>
+      <a href='/values'>Our Values</a>
+      <a class="nav-cta" href="#tracker">Log Your Crisis →</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <span class="hero-eyebrow">Real-Time Crisis Intelligence · Community-Owned</span>
+        <h1>Our Pain.<br>Our Data.<br><span class="line-gold">Our Power.</span></h1>
+        <p class="hero-sub">The Warrior Intelligence Tracker captures your crisis in real time — building longitudinal evidence that changes what happens when you walk through that ER door.</p>
+        <div class="hero-trust">
+          <span class="trust-item"><span class="trust-dot"></span>100% Anonymous</span>
+          <span class="trust-item"><span class="trust-dot"></span>Community-Owned</span>
+          <span class="trust-item"><span class="trust-dot"></span>No Medical Record Required</span>
+          <span class="trust-item"><span class="trust-dot"></span>Under 3 Minutes</span>
+        </div>
+        <p class="privacy-line"><strong>Your data is never shared with insurers, hospitals, or employers.</strong> Submissions are anonymous and consent-based. This data belongs to the Warrior community — not to any institution.</p>
+      </div>
+      <div class="form-card" id="tracker">
+        <div class="form-card-header">
+          <div class="pulse"></div>
+          <div class="form-card-header-text">
+            <strong>Warrior Intelligence Tracker</strong>
+            <span>Accepting submissions now · warriorintelligenceproject.org</span>
+          </div>
+        </div>
+        <div class="form-privacy-banner">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Anonymous · Never linked to your identity, insurer, or medical record
+        </div>
+        <div class="tally-embed-wrap">
+          <iframe data-tally-src="https://tally.so/embed/b59467?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" frameborder="0" marginheight="0" marginwidth="0" title="Warrior Intelligence Tracker — Log your sickle cell crisis experience"></iframe>
+        </div>
+        <div class="dashboard-reminder-banner" role="status">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
+          <p><strong>Once your entry is complete,</strong> log in to the dashboard with your Warrior ID to see your patterns.</p>
+          <a href="https://warrior-intelligence-dashboard.vercel.app" target="_blank" rel="noopener">Go to Dashboard →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat"><span class="stat-num">115+</span><span class="stat-label">Warriors</span></div>
+      <div class="stat"><span class="stat-num">26</span><span class="stat-label">U.S. States</span></div>
+      <div class="stat"><span class="stat-num">6</span><span class="stat-label">Countries</span></div>
+      <div class="stat"><span class="stat-num stat-accent">78%</span><span class="stat-label">In Crisis at Submission</span></div>
+      <div class="stat"><span class="stat-num stat-accent">33%</span><span class="stat-label">Protocol Non-Adherence</span></div>
+    </div>
+    <p class="stats-source">Source: Warrior Intelligence Project anonymous self-reported submissions, 2025–2026. Data updated continuously as new episodes are logged. Warriors in USA, UK, Nigeria, China, Canada, and beyond.</p>
+  </div>
+
+  <section class="section-gray" id="problem">
+    <div class="container">
+      <span class="eyebrow eyebrow-red">Why This Exists</span>
+      <div class="divider"></div>
+      <h2>The system runs on snapshots.<br>Your crises are trajectories.</h2>
+      <p class="lead lead-dark">ER decisions are made in seconds using a single lab value or pain score — while your crisis has been building for days or weeks. That gap isn't a compassion problem. It's a design failure. WIP closes it.</p>
+      <div class="problem-grid">
+        <div class="problem-card"><blockquote>69 days in crisis. Denied admission. Addiction cited. No PCA pump. Pain still 10/10.</blockquote><cite>— WIP Participant, Anonymized</cite></div>
+        <div class="problem-card"><blockquote>14 days hospitalized. I hate being treated as an addict rather than a patient.</blockquote><cite>— Anonymous Warrior, NY</cite></div>
+        <div class="problem-card"><blockquote>They qualify for a salaried role within the healthcare system. Instead, their expertise is erased at the threshold.</blockquote><cite>— Hii White Paper, v2.7</cite></div>
+      </div>
+      <div class="failure-list">
+        <div class="failure-item"><h4>Temporal Blindness</h4><p>ER decisions rely on a single moment while crises behave like trajectories.</p></div>
+        <div class="failure-item"><h4>Pattern Erasure</h4><p>Triggers like thermal shock and hormonal cycles dismissed as "anecdotal."</p></div>
+        <div class="failure-item"><h4>Expertise Inversion</h4><p>Warriors who manage complex regimens at home are treated as rookies in the ER.</p></div>
+      </div>
+      <div class="section-image-row">
+        <div class="section-image-card"><img src="./wip_site_images/couple_female_sick.jpg" alt="Warrior managing a crisis with a partner"></div>
+        <div class="section-image-card"><img src="./wip_site_images/female_not_feeling_well_bed.jpg" alt="Warrior resting during a crisis"></div>
+        <div class="section-image-card"><img src="./wip_site_images/black_man_reflecting.jpg" alt="Warrior reflecting on his experience"></div>
+      </div>
+    </div>
+  </section>
+  <section class="section-light" id="how">
+    <div class="container">
+      <span class="eyebrow eyebrow-navy">How It Works</span>
+      <div class="divider"></div>
+      <h2>Three steps.<br>Your data stays yours.</h2>
+      <p class="lead lead-dark">No accounts. No medical records. No gatekeepers. Just you, your crisis, and a tracker that treats your experience as the intelligence it actually is.</p>
+
+      <!-- Explainer Video — sets context before reading the steps -->
+      <div class="explainer-video-wrap">
+        <div class="explainer-video-frame">
+          <video src="./wip_site_video/wip-explainer-720.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Warrior Intelligence Project explainer — how crisis tracking works"></video>
+        </div>
+        <p class="explainer-video-caption">See how it works — under 3 minutes, 100% anonymous</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><h3>Log Your Crisis</h3><p>Fill out the Warrior Intelligence Tracker in under 3 minutes from any phone or browser — during or after a crisis. Pain level, triggers, ER experience, protocol adherence.</p></div>
+        <div class="step"><div class="step-num">02</div><h3>Build Your Record</h3><p>Every entry creates longitudinal evidence. When you walk into the ER, you carry a documented trajectory — not just a moment. That changes the encounter.</p></div>
+        <div class="step"><div class="step-num">03</div><h3>Shape the System</h3><p>Your data compounds with the community's. Patterns surface. Data briefs are generated. Hospitals, funders, and policymakers see what they've been missing.</p></div>
+      </div>
+      <div class="section-image-row">
+        <div class="section-image-card"><img src="./wip_site_images/female_hand_phone.jpg" alt="Logging a crisis from a phone"></div>
+        <div class="section-image-card"><img src="./wip_site_images/tea_pour.jpg" alt="Warrior building a longitudinal record of self-care"></div>
+        <div class="section-image-card"><img src="./wip_site_images/clinician_using_computer.jpg" alt="Data reaching hospitals and policymakers"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light" id="young-warriors">
+    <div class="container">
+      <span class="eyebrow eyebrow-amber">Pediatric to Adult</span>
+      <div class="divider"></div>
+      <h2>Young Warriors:<br>Crisis Tracking Across the Lifespan</h2>
+      <p class="lead lead-dark">Sickle cell doesn't stop at adulthood. Warriors' data spans pediatric crises, adolescent transitions, adult independence, and elder care—captured in real time by the Warriors and caregivers who live it.</p>
+      <div class="young-warriors">
+        <div class="warrior-photo">
+          <img src="./wip_site_images/father_pediatric.jpg" alt="Father caregiving for a pediatric Warrior">
+        </div>
+        <div class="warrior-photo">
+          <img src="./wip_site_images/young_boy_adolescent.jpg" alt="Adolescent Warrior in transition">
+        </div>
+        <div class="warrior-photo">
+          <img src="./wip_site_images/young_lady_adolecent.jpg" alt="Young Warrior stepping into independence">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-dark" id="data">
+    <div class="container">
+      <span class="eyebrow eyebrow-white">What the Data Reveals</span>
+      <div class="divider"></div>
+      <h2 class="light">Community intelligence faster<br>than any research cycle.</h2>
+      <p class="lead lead-light">In 63 days, Warriors produced findings that traditional research took years to surface — or never surfaced at all. This is what happens when the community owns the data.</p>
+      <div class="data-grid">
+        <div class="data-card"><span class="big">83%</span><span class="lbl">Still in crisis at time of reporting</span></div>
+        <div class="data-card"><span class="big">23%</span><span class="lbl">Identified menstrual cycle as a primary trigger — absent from standard ER protocols</span></div>
+        <div class="data-card"><span class="big">70%</span><span class="lbl">Treated &amp; released reported ineffective outcomes</span></div>
+        <div class="data-card"><span class="big">4×</span><span class="lbl">Better outcomes correlated with admission vs. release</span></div>
+        <div class="data-card"><span class="big">70°F</span><span class="lbl">Thermal shock — crises triggered at "normal" temperatures when rate of change was rapid</span></div>
+        <div class="data-card"><span class="big">6.8</span><span class="lbl">Average reported pain level — ongoing, not acute</span></div>
+      </div>
+      <p class="data-note">Source: WIP anonymous self-reported submissions, 2025–2026. Data updated continuously as new episodes are logged.</p>
+      <div class="section-image-row">
+        <div class="section-image-card"><img src="./wip_site_images/nature_transitions_youth.jpg" alt="Warrior in a moment of transition"></div>
+        <div class="section-image-card"><img src="./wip_site_images/yoga_class_active.jpg" alt="Warrior staying active between crises"></div>
+        <div class="section-image-card"><img src="./wip_site_images/friend_group.jpg" alt="Warriors in community together"></div>
+      </div>
+      <p class="section-caption section-caption-light">Life continues between the data points — that's the story numbers alone can't tell.</p>
+    </div>
+  </section>
+
+  <section class="section-light" id="press">
+    <div class="container">
+      <div class="press-wrap">
+        <span class="eyebrow eyebrow-amber">In the Press</span>
+        <div class="divider"></div>
+
+        <div class="press-feature">
+          <div class="press-deco-quote" aria-hidden="true">&ldquo;</div>
+          <blockquote class="press-blockquote">
+            The lived experience of warriors is not&nbsp;anecdotal&nbsp;evidence.<br>
+            It is real data, real intelligence.
+          </blockquote>
+          <div class="press-rule"></div>
+          <div class="press-attribution">
+            <div class="press-source-stack">
+              <span class="press-pub-badge">Challenger Community News</span>
+              <p class="press-article-title">Beyond the ER: The Data That Can Transform Sickle Cell Care</p>
+              <span class="press-pub-date">June 22, 2026 &nbsp;&middot;&nbsp; Jason Robert Moore</span>
+            </div>
+            <a class="press-read-link"
+               href="https://www.buffchallnews.com/voices/beyond-the-er-the-data-that-can-transform-sickle-cell-care/article_3b3acb46-f78c-43a5-a845-fa07462b2ce6.html"
+               target="_blank" rel="noopener">
+              Read Article
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <hr class="press-divider" />
+
+        <div class="press-footer">
+          <p class="press-future-note">WIP&rsquo;s data is generating earned conversation. Coverage is growing &mdash; placements will be featured here as they&rsquo;re published.</p>
+          <p class="press-media-contact">
+            <strong>Media Inquiries</strong>
+            <a href="mailto:info@kindredcompassholdings.com">info@kindredcompassholdings.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="log-band">
+    <div class="container">
+      <h2>Your crisis is data.<br>Your data is power.</h2>
+      <p>Every entry you submit makes the next Warrior's ER encounter harder to dismiss. It takes under 3 minutes — and it's completely anonymous.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a class="btn-navy" href="#tracker">Log Your Crisis Now ↑</a>
+        <a class="btn-outline-navy" href="https://warrior-intelligence-dashboard.vercel.app" target="_blank" rel="noopener">View Live Dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="container">
+      <span class="eyebrow eyebrow-navy">Data Governance</span>
+      <div class="divider"></div>
+      <h2>Your Data. Your Rules.<br>Your Voice.</h2>
+      <p class="lead lead-dark">WIP is governed by Warriors and guided by research ethics. Every major decision—who accesses data, what research gets approved, how the platform evolves—is made transparently. Warriors vote on major changes. Researchers must earn Governance Council approval.</p>
+      <div class="steps" style="margin-top: 3rem;">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Voting Members</h3>
+          <p><strong>Warriors:</strong> Elected annually by the community. <strong>Community Health Worker:</strong> Jason Robert Moore, Sickle Cell Warriors of Buffalo.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Advisory Members</h3>
+          <p>Research ethics expertise, patient rights representation, and caregiver advocacy partners guide decisions without voting authority.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Open Decisions</h3>
+          <p>Who can access data? What research gets approved? How is WIP run? All Council decisions are public and traceable.</p>
+        </div>
+      </div>
+      <div class="section-image-row">
+        <div class="section-image-card"><img src="./wip_site_images/partners_meeting.jpg" alt="Governance Council in session"></div>
+        <div class="section-image-card"><img src="./wip_site_images/women_partners_discussion.jpg" alt="Warriors and advisors in discussion"></div>
+        <div class="section-image-card"><img src="./wip_site_images/man_smiling.jpg" alt="A Warrior's voice shaping the platform"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-gray" id="privacy">
+    <div class="container">
+      <span class="eyebrow eyebrow-navy">Your Rights</span>
+      <div class="divider"></div>
+      <h2>Privacy & Data Control</h2>
+      <p class="lead lead-dark">You control every aspect of your data. Every crisis you log has three sharing levels. You can change these settings anytime. You can withdraw from WIP entirely. No questions asked.</p>
+      <div class="steps" style="margin-top: 3rem;">
+        <div class="step">
+          <div class="badge-label">Private</div>
+          <h3>Only You See It</h3>
+          <p>Your crisis log is yours alone. Researchers cannot access it. WIP can only use aggregated, de-identified patterns to detect community-wide trends.</p>
+        </div>
+        <div class="step">
+          <div class="badge-label">De-Identified</div>
+          <h3>Researchers Can Use It</h3>
+          <p>Approved researchers can access your data for analysis. Your name stays hidden. You decide what fields they can see.</p>
+        </div>
+        <div class="step">
+          <div class="badge-label">Public</div>
+          <h3>Warriors, Researchers, Everyone</h3>
+          <p>Your story can inspire and inform. Public submissions feed the dashboard, research publications, and institutional briefings—with your consent to share.</p>
+        </div>
+      </div>
+      <div style="margin-top: 3rem; padding: 2rem; background: var(--amber-bg); border-radius: 8px; border-left: 3px solid var(--amber-dark);">
+        <h3 style="color: var(--text-dark); margin-bottom: 0.75rem;">You're Never Trapped</h3>
+        <p style="color: var(--text-mid); margin: 0;">You can delete your data anytime. You can change sharing levels on individual submissions. You can withdraw consent for specific research projects. Your privacy controls are in your hands.</p>
+      </div>
+      <div class="banner-image"><img src="./wip_site_images/couple_water_sun_set.jpg" alt="Warrior at peace, in control of their own story"></div>
+    </div>
+  </section>
+
+  <section class="section-light" id="terms">
+    <div class="container">
+      <span class="eyebrow eyebrow-navy">How We Work</span>
+      <div class="divider"></div>
+      <h2>Terms & Commitments</h2>
+      <p class="lead lead-dark">WIP is built on mutual respect. Warriors own their data. Researchers must earn trust. Institutions must follow Warriors' rules. Here's what that means in practice.</p>
+      <div class="problem-grid" style="margin-top: 3rem;">
+        <div class="problem-card" style="border-top-color: var(--navy);">
+          <h4 style="color: var(--navy); margin-bottom: 0.75rem;">Warriors Own the Data</h4>
+          <p style="font-size: 0.95rem; color: var(--text-mid);">You submit data. You control it. You decide who sees it. You can delete it. Institutional partners never own your crisis logs—they borrow access with your permission.</p>
+        </div>
+        <div class="problem-card" style="border-top-color: var(--navy);">
+          <h4 style="color: var(--navy); margin-bottom: 0.75rem;">Researchers Earn Access</h4>
+          <p style="font-size: 0.95rem; color: var(--text-mid);">Research requires IRB approval, Governance Council approval, and written commitments to Warriors. No data access without these checkpoints. Researchers must acknowledge Warriors in publications and share findings before they publish.</p>
+        </div>
+        <div class="problem-card" style="border-top-color: var(--navy);">
+          <h4 style="color: var(--navy); margin-bottom: 0.75rem;">No Selling, No Surveilling</h4>
+          <p style="font-size: 0.95rem; color: var(--text-mid);">Your data is never sold. Your data is never shared with insurers, employers, or marketing firms. WIP is not a surveillance tool—it's evidence infrastructure built by Warriors, for Warriors.</p>
+        </div>
+        <div class="problem-card" style="border-top-color: var(--navy);">
+          <h4 style="color: var(--navy); margin-bottom: 0.75rem;">You Control Consent</h4>
+          <p style="font-size: 0.95rem; color: var(--text-mid);">Your initial consent covers crisis logging. Every research project that uses your data requires a separate approval decision from you. You can grant, deny, or revoke access per project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-gray" id="data-ethics">
+    <div class="container">
+      <span class="eyebrow eyebrow-navy">Our Principles</span>
+      <div class="divider"></div>
+      <h2>Data Ethics & Community Benefit</h2>
+      <p class="lead lead-dark">Warriors' data generates real institutional change. Research findings get published. Hospitals change protocols. Policy makers see evidence they've never seen. WIP's ethics are designed to ensure Warriors benefit from the data they create.</p>
+      <div class="data-grid" style="margin-top: 3rem;">
+        <div class="data-card" style="background: var(--navy-mid); border-color: rgba(193, 160, 4, 0.3);">
+          <span class="title" style="color: var(--amber);">Transparency</span>
+          <span class="lbl">Every research request is public. Warriors see who's asking for data and why. No hidden research agendas.</span>
+        </div>
+        <div class="data-card" style="background: var(--navy-mid); border-color: rgba(185, 28, 28, 0.3);">
+          <span class="title" style="color: var(--red-mid);">Accountability</span>
+          <span class="lbl">Researchers who misuse data lose access. Institutions that exploit Warriors face permanent ban. Governance Council holds everyone to the same standard.</span>
+        </div>
+        <div class="data-card" style="background: var(--navy-mid); border-color: rgba(74, 222, 128, 0.3);">
+          <span class="title" style="color: #4ade80;">Benefit-Sharing</span>
+          <span class="lbl">Warriors see results. When your data leads to a published finding or policy change, you're told about it. You can request co-authorship on research you contributed to.</span>
+        </div>
+        <div class="data-card" style="background: var(--navy-mid); border-color: rgba(96, 165, 250, 0.3);">
+          <span class="title" style="color: #60a5fa;">Agency</span>
+          <span class="lbl">You're never just a data point. Warriors participate in research design. You vote on governance. Your voice shapes how WIP evolves.</span>
+        </div>
+      </div>
+      <div style="margin-top: 3rem; padding: 2rem; background: rgba(11, 29, 58, 0.5); border-radius: 8px; border-left: 3px solid var(--amber);">
+        <h3 style="color: #fff; margin-bottom: 0.75rem;">The Bottom Line</h3>
+        <p style="color: rgba(255,255,255,0.7); margin: 0;">Warriors' data is evidence infrastructure. It exists to strengthen institutions AND to shift power back to Warriors. That dual commitment is what makes WIP different—and what makes it worthy of your trust.</p>
+      </div>
+      <div class="banner-image"><img src="./wip_site_images/yoga_black_woman.jpg" alt="A Warrior benefiting from the community she helped build"></div>
+    </div>
+  </section>
+
+  <section class="cbo-strip cbo-strip-photo">
+    <div class="cbo-inner">
+      <span class="eyebrow eyebrow-amber" style="display:block; margin-bottom: 0.75rem;">For Organizations</span>
+      <h3>Become a WIP Partner</h3>
+      <p>Share the tracker with your Warriors, receive community-specific data briefs to strengthen grant applications, and add real evidence to your advocacy work. We're actively onboarding CBO partners now.</p>
+      <a class="btn-outline-navy" href="mailto:info@kindredcompassholdings.com?subject=WIP CBO Partnership Interest">Partner With WIP →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Warrior Intelligence Project</div>
+    <div class="footer-sub">warriorintelligenceproject.org</div>
+    <div class="footer-links">
+      <a href="#tracker">Log Your Crisis</a>
+      <a href="https://warrior-intelligence-dashboard.vercel.app" target="_blank">Live Dashboard</a>
+      <a href="#problem">The Problem</a>
+      <a href="#data">The Data</a>
+      <a href='/values'>Our Values</a>
+      <a href="mailto:info@kindredcompassholdings.com">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 Jason Robert Moore &nbsp;·&nbsp; Kindred Compass Holdings, LLC<br>Warrior Intelligence Project &nbsp;·&nbsp; Human Intelligence Infrastructure (Hii) Framework</p>
+    <p class="footer-designed-by">Designed by J. Robert Moore &nbsp;·&nbsp; Kindred Compass Holdings</p>
+  </footer>
+</body>
+</html>
