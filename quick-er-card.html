@@ -10,17 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ground: #F0EDE4;
-    --surface: #FAF8F2;
-    --ink: #1A1614;
-    --ink-muted: #5C504A;
-    --gold: #9E6D00;
-    --gold-light: #F2E4C0;
-    --gold-border: #C8A040;
-    --accent: #8C3020;
-    --accent-light: #F8EDEA;
-    --cover-bg: #0F0C09;
-    --cover-ink: #F0EDE4;
+    --ground: #FFFFFF;
+    --surface: #FFFBEB;
+    --ink: #0B1D3A;
+    --ink-muted: #4B5563;
+    --gold: #D97706;
+    --gold-light: #FFF3D6;
+    --gold-border: #F0B429;
+    --accent: #B42318;
+    --accent-light: #FEF1F0;
+    --cover-bg: #0B1D3A;
+    --cover-ink: #FFFFFF;
     --mono: 'IBM Plex Mono', monospace;
     --sans: 'Nunito', sans-serif;
     --display: 'Cormorant Garamond', serif;
@@ -28,15 +28,15 @@
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground: #100E0A; --surface: #1A1612; --ink: #EAE6DC; --ink-muted: #9A8E80;
-      --gold: #C49830; --gold-light: #1E1508; --gold-border: #7A6020;
-      --accent: #C05040; --accent-light: #1A0C0A; --cover-bg: #080605; --cover-ink: #EAE6DC;
+      --ground: #0B1420; --surface: #101B2E; --ink: #EAF0F8; --ink-muted: #A8B4C4;
+      --gold: #F0B429; --gold-light: #16233A; --gold-border: #D97706;
+      --accent: #EF6B5D; --accent-light: #2A1512; --cover-bg: #060C16; --cover-ink: #EAF0F8;
     }
   }
   :root[data-theme="dark"] {
-    --ground: #100E0A; --surface: #1A1612; --ink: #EAE6DC; --ink-muted: #9A8E80;
-    --gold: #C49830; --gold-light: #1E1508; --gold-border: #7A6020;
-    --accent: #C05040; --accent-light: #1A0C0A; --cover-bg: #080605; --cover-ink: #EAE6DC;
+    --ground: #0B1420; --surface: #101B2E; --ink: #EAF0F8; --ink-muted: #A8B4C4;
+    --gold: #F0B429; --gold-light: #16233A; --gold-border: #D97706;
+    --accent: #EF6B5D; --accent-light: #2A1512; --cover-bg: #060C16; --cover-ink: #EAF0F8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,7 +71,7 @@
   .card-head::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(200,160,64,0.18) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(240,180,41,0.22) 0%, transparent 65%);
     pointer-events: none;
   }
   .eyebrow {
@@ -91,7 +91,7 @@
   }
   .card-sub {
     font-size: 0.78rem;
-    color: rgba(240,237,228,0.6);
+    color: rgba(255,255,255,0.68);
     margin-top: 8px;
     line-height: 1.5;
   }
@@ -180,7 +180,7 @@
 
   /* FOOTER */
   .card-foot {
-    background: var(--accent-light);
+    background: var(--surface);
     border-top: 1px solid var(--gold-border);
     padding: 18px 24px 22px;
   }
