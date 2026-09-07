@@ -1,0 +1,1180 @@
+<title>WIP Growth Blueprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap">
+
+<style>
+/* Token System */
+:root {
+  --gold:       #C4891B;
+  --gold-dim:   rgba(196,137,27,0.18);
+  --gold-rule:  rgba(196,137,27,0.35);
+  --crisis:     #A8352A;
+  --ground:     #ECEAE0;
+  --surface:    #F5F3ED;
+  --surface-2:  #E5E2D8;
+  --ink:        #181B21;
+  --ink-2:      #3E4249;
+  --ink-3:      #717680;
+  --border:     rgba(24,27,33,0.11);
+  --phase-a:    #1D4B6E;
+  --phase-b:    #2E6B4A;
+  --phase-c:    #5A3978;
+  --phase-d:    #7A3B1A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:    #0C0E15;
+    --surface:   #131720;
+    --surface-2: #1C2130;
+    --ink:       #EDE9E1;
+    --ink-2:     #B0BAC8;
+    --ink-3:     #606B7A;
+    --border:    rgba(237,233,225,0.09);
+    --gold-dim:  rgba(196,137,27,0.14);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:    #0C0E15;
+  --surface:   #131720;
+  --surface-2: #1C2130;
+  --ink:       #EDE9E1;
+  --ink-2:     #B0BAC8;
+  --ink-3:     #606B7A;
+  --border:    rgba(237,233,225,0.09);
+  --gold-dim:  rgba(196,137,27,0.14);
+}
+
+/* Reset & Base */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Typography Scale */
+.label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  line-height: 1.0;
+  text-wrap: balance;
+}
+h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+  line-height: 1.05;
+  text-wrap: balance;
+  color: var(--ink);
+}
+h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+h4 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+p { max-width: 64ch; color: var(--ink-2); }
+strong { color: var(--ink); font-weight: 700; }
+
+/* Layout */
+.masthead {
+  background: var(--ink);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.masthead-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+.masthead-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+.hero {
+  padding: 5rem 2.5rem 4rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: 'BLUEPRINT';
+  position: absolute;
+  right: -0.5rem;
+  bottom: -1.5rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(5rem, 16vw, 13rem);
+  color: var(--gold-dim);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-label { margin-bottom: 1.25rem; }
+.hero-headline {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  color: var(--ink);
+  max-width: 18ch;
+  margin-bottom: 1.75rem;
+}
+.hero-body {
+  font-size: 1.175rem;
+  color: var(--ink-2);
+  max-width: 52ch;
+  margin-bottom: 2.5rem;
+}
+.thesis-bar {
+  border-left: 3px solid var(--gold);
+  padding: 1rem 1.5rem;
+  background: var(--gold-dim);
+  max-width: 56ch;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+/* Section Wrapper */
+section {
+  padding: 4.5rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+section:last-of-type { border-bottom: none; }
+.section-header { margin-bottom: 3rem; }
+.section-header .label { display: block; margin-bottom: 0.75rem; }
+
+/* Two-col layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+@media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+/* Data Chips */
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.stat-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 140px;
+  flex: 1 1 180px;
+}
+.stat-chip .num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 2.1rem;
+  color: var(--gold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat-chip .desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1.3;
+}
+.stat-chip .den {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  opacity: 0.75;
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Guide Outline Card */
+.guide-sections { display: flex; flex-direction: column; gap: 0; }
+.guide-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.guide-item:last-child { border-bottom: none; }
+.guide-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-weight: 500;
+  padding-top: 0.2rem;
+}
+.guide-title { font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+.guide-desc { font-size: 0.9rem; color: var(--ink-3); }
+
+/* Funnel */
+.funnel { display: flex; flex-direction: column; gap: 0; }
+.funnel-step {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0 1.5rem;
+  position: relative;
+  padding-bottom: 2rem;
+}
+.funnel-step:last-child { padding-bottom: 0; }
+.funnel-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.funnel-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+}
+.funnel-connector {
+  width: 1px;
+  flex: 1;
+  background: var(--gold-rule);
+  margin-top: 0.4rem;
+}
+.funnel-step:last-child .funnel-connector { display: none; }
+.funnel-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.2rem;
+}
+.funnel-body { font-size: 0.925rem; color: var(--ink-2); }
+
+/* Email Sequence */
+.email-cards { display: flex; flex-direction: column; gap: 1rem; }
+.email-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--gold);
+}
+.email-card-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-3);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.email-subject { font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; font-size: 1rem; }
+.email-intent { font-size: 0.9rem; color: var(--ink-2); }
+
+/* Site Architecture */
+.site-arch { display: flex; flex-direction: column; gap: 0.5rem; }
+.arch-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+}
+.arch-block {
+  flex: 1;
+  padding: 0.875rem 1.125rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.arch-block strong { display: block; margin-bottom: 0.15rem; font-size: 0.95rem; }
+.arch-block.keep { border-left: 3px solid var(--ink-3); }
+.arch-block.new  { border-left: 3px solid var(--gold); background: var(--gold-dim); }
+.arch-block.warm { border-left: 3px solid #3E8B5A; }
+.arch-block.done { border-left: 3px solid #2E6B4A; }
+.arch-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.arch-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.arch-swatch { width: 12px; height: 12px; }
+.arch-swatch.keep { background: var(--ink-3); }
+.arch-swatch.new  { background: var(--gold); }
+.arch-swatch.warm { background: #3E8B5A; }
+.arch-swatch.done { background: #2E6B4A; }
+
+/* Phases */
+.phases { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.phase-card {
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.phase-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.phase-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+.phase-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-3);
+}
+.phase-items { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+.phase-items li {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  padding-left: 1rem;
+  position: relative;
+}
+.phase-items li::before {
+  content: '\00B7';
+  position: absolute;
+  left: 0.25rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+.phase-items li.done { color: var(--ink-3); }
+.phase-items li.done::before { content: '\2713'; color: #2E6B4A; font-size: 0.8em; left: 0; }
+.phase-card:nth-child(1) { border-top: 3px solid var(--phase-a); }
+.phase-card:nth-child(1) .phase-label { color: var(--phase-a); }
+.phase-card:nth-child(2) { border-top: 3px solid var(--phase-b); }
+.phase-card:nth-child(2) .phase-label { color: var(--phase-b); }
+.phase-card:nth-child(3) { border-top: 3px solid var(--phase-c); }
+.phase-card:nth-child(3) .phase-label { color: var(--phase-c); }
+.phase-card:nth-child(4) { border-top: 3px solid var(--phase-d); }
+.phase-card:nth-child(4) .phase-label { color: var(--phase-d); }
+
+/* Metrics */
+.metric-rows { display: flex; flex-direction: column; gap: 0; }
+.metric-group { padding: 1.75rem 0; border-bottom: 1px solid var(--border); }
+.metric-group:last-child { border-bottom: none; }
+.metric-group-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.metric-scroll { overflow-x: auto; }
+.metric-table { width: 100%; border-collapse: collapse; min-width: 520px; }
+.metric-table th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-align: left;
+  padding: 0 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.metric-table td {
+  font-size: 0.9rem;
+  padding: 0.7rem 1rem 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--ink-2);
+}
+.metric-table tr:last-child td { border-bottom: none; }
+.metric-table td:first-child { color: var(--ink); font-weight: 600; }
+.metric-table td.target { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--gold); }
+.metric-table th:last-child, .metric-table td:last-child { text-align: right; }
+
+/* Pull Quote */
+.pull-quote {
+  border-left: 3px solid var(--crisis);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.pull-quote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--crisis);
+}
+
+/* Inline callout */
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+.callout.flag { border-left: 3px solid var(--crisis); }
+.callout-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.callout.flag .callout-label { color: var(--crisis); }
+.callout p { max-width: none; color: var(--ink-2); font-size: 0.9rem; }
+.callout p + p { margin-top: 0.6rem; }
+
+/* Footer */
+footer {
+  background: var(--ink);
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+footer .brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+footer .note {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+}
+
+/* Utility */
+.mt-sm { margin-top: 0.75rem; }
+.mt-md { margin-top: 1.5rem; }
+.mt-lg { margin-top: 2.5rem; }
+.mono { font-family: 'IBM Plex Mono', monospace; font-size: 0.85em; }
+</style>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-brand">WIP · WARRIOR INTELLIGENCE PROJECT</div>
+  <div class="masthead-meta">
+    STRATEGIC GROWTH BLUEPRINT<br>
+    SEPTEMBER 2026 · KCH INTERNAL
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label label">Authored by · KCH Strategic Communications</div>
+  <h1 class="display hero-headline">Bigger.<br>Warmer.<br>Still the mission.</h1>
+  <p class="hero-body">
+    Crisis logging is the front door. Unreasonable hospitality is what's waiting inside.
+    This blueprint maps how WIP becomes a whole-person intelligence platform
+    without losing a single data point.
+  </p>
+  <div class="thesis-bar">
+    "The data mission doesn't change. What changes is how warmly we receive the
+    Warriors who carry it, and how much we give them before we ask."
+  </div>
+</div>
+
+<!-- SECTION 0: DATA INTEGRITY -->
+<section id="integrity">
+  <div class="section-header">
+    <span class="label">Section 0 · Standing Rule</span>
+    <h2>Every Number in This Document Is Traceable</h2>
+  </div>
+
+  <div class="callout flag">
+    <div class="callout-label">Read before using any figure from this blueprint</div>
+    <p>
+      All figures here were recomputed on 6 September 2026 directly from the Crisis Tracker export
+      and carry their denominators. The authoritative list lives in
+      <strong>wip-source-of-truth-figures.md</strong> in the Strategic Communications project.
+      If a number does not appear there, it does not go in front of anyone.
+    </p>
+    <p>
+      <strong>Retired and no longer usable:</strong> 115+ Warriors, 145+ Warriors, 83%, 6.8,
+      23% menstrual trigger, 4x admission gap, 33% protocol non-adherence, 63 days to findings,
+      the 23-hour onset-to-care average. Each has a replacement in the source-of-truth document.
+    </p>
+    <p>
+      <strong>Submissions are not Warriors.</strong> 145 crisis submissions came from 113 Warriors.
+      The published JSCD abstract already draws this distinction, reporting 87 reports from
+      77 participants for its window. Never use the two words interchangeably.
+    </p>
+    <p>
+      <strong>The numbers move.</strong> This is live data. Geography is derived from the hospital a
+      Warrior names plus the area code of the number they give for check-ins, because submissions
+      are anonymous. Refreshing these figures is a standing job, not a one-time fix.
+    </p>
+  </div>
+</section>
+
+<!-- SECTION I: THE ASSET -->
+<section id="asset">
+  <div class="section-header">
+    <span class="label">Section I · The Lead Magnet</span>
+    <h2>The Warrior ER Survival Guide</h2>
+    <p class="mt-sm" style="font-size:1.05rem;">
+      A data-grounded, community-owned field guide to navigating the system,
+      built from actual WIP submissions. The only guide of its kind, because the
+      only people who could write it are Warriors.
+    </p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>Why this asset, and why only WIP can make it</h3>
+      <p class="mt-sm">
+        Every other SCD resource on the internet is written by institutions, for institutions.
+        The Warrior ER Survival Guide draws from <strong>145 anonymous crisis submissions logged
+        by 113 Warriors</strong> to produce findings no clinical team has published, because no
+        clinical team was in the room when Warriors were living it.
+      </p>
+      <p class="mt-sm">
+        This isn't a generic wellness download. It's intelligence that was community-produced
+        and community-owned, and the guide makes that origin story explicit on every page.
+        The draw IS the proof of concept.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat-chip">
+          <span class="num">21%</span>
+          <span class="desc">recorded the menstrual cycle among their triggers, a question standard ER intake does not ask</span>
+          <span class="den">31 of 145</span>
+        </div>
+        <div class="stat-chip">
+          <span class="num">2&times;</span>
+          <span class="desc">as likely to report treatment was working when admitted, 57% against 28%</span>
+          <span class="den">35 admitted / 29 released</span>
+        </div>
+        <div class="stat-chip">
+          <span class="num">70&deg;F</span>
+          <span class="desc">7 in 10 crisis reports came from below this, median 57&deg;F</span>
+          <span class="den">132 reporting temperature</span>
+        </div>
+        <div class="stat-chip">
+          <span class="num">72%</span>
+          <span class="desc">treated and released rated their treatment as working "a little" or "not at all"</span>
+          <span class="den">21 of 29</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Credibility Stack</div>
+        <p>
+          The guide does not stand alone. It sits behind a peer-reviewed publication,
+          <em>Journal of Sickle Cell Disease</em>, Vol. 3 Suppl. 1, June 2026, and a bylined feature in
+          Challenger Community News from the same week. Institutional audiences meet the
+          citation first. Community audiences meet the guide first. Both doors lead to the tracker.
+        </p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Gating Strategy</div>
+        <p><strong>Full gate, email plus first name only.</strong> Every extra field reduces conversion 5 to 10%.
+        Deliver on the thank-you page immediately and by email as backup, so nobody in crisis
+        is waiting on a confirmation click. Thank-you page carries one next step:
+        <em>"Log your first crisis and add your data to the next edition."</em></p>
+        <p><strong>Privacy line under the form, every time:</strong> "Your email is for the guide and optional
+        WIP updates. It is never added to a crisis record or shared with hospitals, insurers, or employers."</p>
+      </div>
+    </div>
+
+    <div>
+      <h3>Content outline</h3>
+      <p class="mt-sm" style="font-size:0.875rem; margin-bottom:1.25rem;">A practical ER companion usable in minutes, with deeper context for when there is time. PDF plus web-readable, designed for mobile.</p>
+      <div class="guide-sections">
+        <div class="guide-item">
+          <span class="guide-num">00</span>
+          <div>
+            <div class="guide-title">A Note Before You Begin</div>
+            <div class="guide-desc">A promise: this isn't generic SCD content. Every finding came from Warriors. Here's how, and here's how to read the numbers.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">01</span>
+          <div>
+            <div class="guide-title">You Already Know This Pattern</div>
+            <div class="guide-desc">What the data shows about crisis trajectories: the constant-restart cycle, 6.1 average pain at logging with a median of 7, and 77% still in crisis at the moment they submitted.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">02</span>
+          <div>
+            <div class="guide-title">What They Never Ask</div>
+            <div class="guide-desc">Stress at 55% and cold at 51%, the two largest factors. The menstrual cycle at 21%, not the largest but the one nobody asks about. Temperature: 7 in 10 reports came from below 70&deg;F.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">03</span>
+          <div>
+            <div class="guide-title">The Room</div>
+            <div class="guide-desc">Protocol failures by the numbers. Why 72% of treated-and-released Warriors rated their treatment as barely working or not at all. What temporal blindness costs you.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">04</span>
+          <div>
+            <div class="guide-title">Your Toolkit</div>
+            <div class="guide-desc">What to bring. What to say. What to document in the room. Five scripted language cards including two for discharge, one neutral and one for when pain is still high.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">05</span>
+          <div>
+            <div class="guide-title">What You Can Ask For</div>
+            <div class="guide-desc">EMTALA, pain reassessment, records access, the grievance process, OCR. Written as what you can request and document, not as guaranteed outcomes. Legally defensible on purpose.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">06</span>
+          <div>
+            <div class="guide-title">How We Built This</div>
+            <div class="guide-desc">145 submissions, 113 Warriors, 28 U.S. states, 6 countries. Anonymous, community-owned, never shared with insurers. The intelligence infrastructure that makes this possible.</div>
+          </div>
+        </div>
+        <div class="guide-item">
+          <span class="guide-num">07</span>
+          <div>
+            <div class="guide-title">Add Your Voice to the Next Edition</div>
+            <div class="guide-desc">The guide gets more precise every time a Warrior logs. Three minutes makes the next Warrior's encounter harder to dismiss. Log Your Crisis.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout mt-lg">
+    <div class="callout-label">Landing Page Structure</div>
+    <p>
+      <strong>Headline:</strong> "What 113 Warriors Know That Your ER Doesn't." ·
+      <strong>Sub:</strong> A free guide built from real crisis data, not clinical assumptions. ·
+      <strong>Warmth line:</strong> You were born with this. We built this to carry some of it with you. ·
+      <strong>Preview:</strong> The triage script itself, not just a table of contents. ·
+      <strong>Social proof:</strong> "113 Warriors logged the 145 submissions that built this." ·
+      <strong>Form:</strong> First name optional, email required. ·
+      <strong>CTA:</strong> "Send Me the ER Guide."
+    </p>
+    <p>
+      <strong>A/B worth running:</strong> the headline above is confident and campaign-ready, but it promises
+      knowledge superiority rather than a reader outcome. Test it against
+      "Walk into the ER with words, questions, and a record of what matters."
+      Use the first as a social and earned-media hook, and let the data decide the landing page default.
+    </p>
+  </div>
+</section>
+
+<!-- SECTION II: THE FUNNEL -->
+<section id="funnel">
+  <div class="section-header">
+    <span class="label">Section II · The Pipeline</span>
+    <h2>The Unreasonable Hospitality Funnel</h2>
+    <p class="mt-sm" style="font-size:1.05rem;">
+      Healthcare processes Warriors. WIP receives them. Crisis logging is not the ask.
+      It's the natural destination for someone who arrived feeling seen.
+    </p>
+  </div>
+
+  <div class="pull-quote">
+    "In healthcare, 'hospitality' has been stripped down to efficiency. Unreasonable hospitality
+    means giving more than a Warrior expects before asking for anything in return,
+    and then asking once, clearly, with full explanation of why it matters."
+    <cite>KCH Framework · Hii Layer Integration</cite>
+  </div>
+
+  <div class="two-col mt-lg">
+    <div>
+      <h3>The pipeline, step by step</h3>
+      <div class="funnel mt-md">
+        <div class="funnel-step">
+          <div class="funnel-line"><div class="funnel-dot"></div><div class="funnel-connector"></div></div>
+          <div>
+            <div class="funnel-tag">Arrival</div>
+            <h4>Discovery</h4>
+            <p class="funnel-body">Organic social, ShinePR earned media, the Challenger feature, the JSCD citation, partner referrals (SCWB, CBOs), Reddit and SCD communities, word of mouth from Warriors.</p>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-line"><div class="funnel-dot"></div><div class="funnel-connector"></div></div>
+          <div>
+            <div class="funnel-tag">The Draw</div>
+            <h4>Warrior ER Survival Guide</h4>
+            <p class="funnel-body">Landing page with a clear value exchange. Email plus optional first name. Feels like receiving a gift, not entering a database. Immediate delivery, no confirmation gate.</p>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-line"><div class="funnel-dot"></div><div class="funnel-connector"></div></div>
+          <div>
+            <div class="funnel-tag">The Receive</div>
+            <h4>Welcome sequence, 3 emails over 7 days</h4>
+            <p class="funnel-body">Pure hospitality. Two emails give before the third asks. Warriors learn what WIP knows. They see their own experience reflected in the data.</p>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-line"><div class="funnel-dot"></div><div class="funnel-connector"></div></div>
+          <div>
+            <div class="funnel-tag">The Invitation</div>
+            <h4>Log Your First Crisis</h4>
+            <p class="funnel-body">Not a cold CTA, a warm continuation. "You've seen what 113 Warriors built. Add your experience to the next edition." Under 3 minutes. Anonymous. A contribution, not a transaction.</p>
+          </div>
+        </div>
+        <div class="funnel-step">
+          <div class="funnel-line"><div class="funnel-dot"></div><div class="funnel-connector"></div></div>
+          <div>
+            <div class="funnel-tag">Longitudinal</div>
+            <h4>Warrior Community Member</h4>
+            <p class="funnel-body">Warrior ID established. Submission history builds. Quarterly data briefs land in their inbox showing what the community found. They become the asset they downloaded.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3>Welcome email sequence</h3>
+      <div class="email-cards mt-md">
+        <div class="email-card">
+          <div class="email-card-meta">Email 01 · Day 0 · Immediate delivery</div>
+          <div class="email-subject">"Your ER Guide is here. Start with this page."</div>
+          <p class="email-intent">
+            Deliver the guide and point straight at the toolkit in Section 04, so a Warrior in a
+            waiting room finds the scripts without reading the theory first. Say plainly that WIP
+            is community-owned and that this email list is separate from crisis submissions.
+            Tone: receiving, not selling.
+          </p>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta">Email 02 · Day 3 · Pure value, no ask</div>
+          <div class="email-subject">"A pattern 21% of Warriors told us to take seriously."</div>
+          <p class="email-intent">
+            Deep dive on the menstrual cycle finding. What Warriors reported, with the denominator
+            shown. Why standard intake doesn't ask. Frame it honestly: not the biggest trigger in
+            the data, the one nobody is looking for. No CTA to log. Just: here's what your
+            community already knows. You're part of this now.
+          </p>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta">Email 03 · Day 7 · Soft invitation</div>
+          <div class="email-subject">"If you choose to add your experience, here's what happens next."</div>
+          <p class="email-intent">
+            Introduce the tracker as authorship, not data entry. Explain anonymity, ownership, what
+            is collected, and what it will never be used for, before asking for anything.
+            Avoid "your crisis is intelligence" as the opener: it's mission-true but reads as
+            extractive to someone whose crisis may be active right now.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Consent Architecture Is Part of the Product</div>
+        <p>
+          This audience has every reason to be wary of institutions collecting their data. Keep the
+          guide download and future WIP contact visibly separate, explain exactly what future email
+          will contain, and make unsubscribe obvious. The trust you spend here is the trust you
+          need at the tracker.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION III: THE SITE -->
+<section id="site">
+  <div class="section-header">
+    <span class="label">Section III · The Platform</span>
+    <h2>WIP Evolved: Bigger and Warmer</h2>
+    <p class="mt-sm" style="font-size:1.05rem;">
+      The data architecture stays untouched. What changes is everything that surrounds it:
+      the welcome layer, the resource library, the acknowledgment that Warriors are whole people.
+    </p>
+  </div>
+
+  <div class="arch-legend">
+    <div class="arch-legend-item"><div class="arch-swatch keep"></div> Unchanged</div>
+    <div class="arch-legend-item"><div class="arch-swatch done"></div> Shipped</div>
+    <div class="arch-legend-item"><div class="arch-swatch warm"></div> Warmer framing</div>
+    <div class="arch-legend-item"><div class="arch-swatch new"></div> New section</div>
+  </div>
+
+  <div class="site-arch">
+    <div class="arch-row">
+      <div class="arch-block done">
+        <strong>Hero and stat band: Warrior Welcome (shipped September 2026)</strong>
+        The hero action is unchanged. Above the stat band sits one line that receives the Warrior before any number does: "You were born with this, and you have spent your life explaining it to rooms that forget between visits. This is where what you carry gets counted, and kept." Note the framing: SCD is congenital. Never "managing this for years," which implies acquisition.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block new">
+        <strong>Resource Library</strong>
+        The Warrior ER Survival Guide (gated, email capture) plus ungated: Quick ER Card, Trigger Awareness Primer, Protocol Language Guide, Community Data Brief. This section gives before it asks. The draw lives here permanently after launch.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block keep">
+        <strong>Why This Exists (The Problem Section)</strong>
+        Structurally unchanged. Temporal blindness, pattern erasure, expertise inversion. The two quotes in it were replaced with verbatim tracker comments in September 2026.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block keep">
+        <strong>How It Works · Three Steps</strong>
+        Unchanged. Log, Build, Shape. The pipeline is clear and correct.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block done">
+        <strong>The Data Section (rebuilt September 2026)</strong>
+        Every card now carries its denominator under a "How to read these numbers" key that marks the figures as community-reported patterns, not clinical determinations. Seven cards including the two largest triggers, stress and cold, which were previously missing and made the menstrual finding look larger than it is.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block done">
+        <strong>In the Press (live)</strong>
+        Challenger Community News feature and the Journal of Sickle Cell Disease citation, with ScholarlyArticle structured data. Add the Scientific American profile next.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block new">
+        <strong>What Warriors Say</strong>
+        Verbatim tracker comments displayed with dignity, not as marketing copy. One voice per section break, attributed only as "WIP Warrior" or "WIP Warrior · [Hospital]", dropping the hospital wherever the quote's detail could narrow identity. Never paraphrased, never composited, never grammar-corrected. The human layer underneath the data.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block new">
+        <strong>Beyond the Crisis: Nine Dimensions of Warrior Life</strong>
+        WIP's acknowledgment that crisis data is one data point. Warrior life has nine dimensions: family, physical, social, mental health, spirituality, finances, career, daily vitality, community belonging. WIP doesn't provide all nine. But it names all nine, and points to partners who do. This is not copying anyone. This is WIP holding the full map while owning its lane.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block keep">
+        <strong>Data Governance and Privacy Controls</strong>
+        Unchanged. Warriors own the data. Three sharing levels. Council decisions public. This section earns institutional trust, so it stays intact.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block warm">
+        <strong>Partner Hub (expanded)</strong>
+        SCWB, Axis Advocacy, CBO partners, clinical allies. The ecosystem made visible. This section expands to show WIP as the intelligence engine within a broader network of care, not a solo platform but a hub.
+      </div>
+    </div>
+    <div class="arch-row">
+      <div class="arch-block new">
+        <strong>Footer Email Capture</strong>
+        For Warriors who aren't ready to log yet. "Stay connected to what the community is finding." Email only. Feeds the same nurture sequence. No one leaves without a warm handoff.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout mt-lg">
+    <div class="callout-label">Design Principle for the Evolution</div>
+    <p>
+      <strong>Data stays front, warmth is the surround.</strong> The crisis logging CTA remains
+      the dominant action on the page. Every new section is additive: it wraps the
+      existing architecture in human context without burying it. A Warrior on a phone
+      in crisis should still be able to reach "Log Your Crisis" in two taps.
+      Everything else is for the Warrior who has three minutes and needs to feel received.
+    </p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Publishing Discipline</div>
+    <p>
+      The site source now lives in a git repository on the working machine, and the deploy
+      runs from that repository. Never edit the live site through a host interface: if it
+      happens, pull the served HTML back into the repo and commit it before making further
+      changes, or the next deploy silently reverts it. That failure mode is exactly how the
+      repo, the local folder, and the live site drifted into three different versions.
+    </p>
+  </div>
+</section>
+
+<!-- SECTION IV: ROADMAP -->
+<section id="roadmap">
+  <div class="section-header">
+    <span class="label">Section IV · Implementation</span>
+    <h2>Phased Roadmap</h2>
+    <p class="mt-sm" style="font-size:1.05rem;">
+      Four phases, each building on the last. The guide launches first because it
+      proves the model before the site rebuild begins.
+    </p>
+  </div>
+
+  <div class="phases">
+    <div class="phase-card">
+      <div class="phase-label">Phase A · The Draw</div>
+      <div class="phase-title">Build the Asset</div>
+      <div class="phase-time">Weeks 1 to 6</div>
+      <ul class="phase-items">
+        <li class="done">Draft Warrior ER Survival Guide, 8 sections, web format</li>
+        <li class="done">Design guide with WIP visual identity, not generic nonprofit</li>
+        <li class="done">Reconcile every published figure against the tracker</li>
+        <li>Build the Quick ER Card, the highest-utility shareable and the landing page preview</li>
+        <li>Build landing page on warriorintelligenceproject.org</li>
+        <li>Configure email capture and delivery automation</li>
+        <li>Write the 3-email welcome sequence, at least the first two before launch</li>
+        <li>Recruit 5 to 10 compensated Warrior reviewers to test the guide calm, tired, and in a waiting room</li>
+        <li>Soft launch to SCWB network and existing Warrior community</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-label">Phase B · Warm the Site</div>
+      <div class="phase-title">Evolve the Platform</div>
+      <div class="phase-time">Weeks 7 to 16</div>
+      <ul class="phase-items">
+        <li class="done">Add Warrior Welcome framing above the stat band</li>
+        <li class="done">Rebuild the data section with denominators and a reading key</li>
+        <li class="done">Replace non-verbatim quotes with tracker comments</li>
+        <li class="done">Add the press section with Challenger and JSCD</li>
+        <li>Build Resource Library section, guide plus ungated primers</li>
+        <li>Build the Nine Dimensions acknowledgment section</li>
+        <li>Add footer email capture</li>
+        <li>Expand partner hub with CBO and clinical partners</li>
+        <li>Add the Scientific American profile to the press section</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-label">Phase C · Community Infrastructure</div>
+      <div class="phase-title">Build the Network</div>
+      <div class="phase-time">Months 4 to 8</div>
+      <ul class="phase-items">
+        <li>Launch WIP newsletter, the quarterly community data brief</li>
+        <li>Stand up the quarterly figure refresh as a fixed calendar item</li>
+        <li>Begin formal Warrior voice documentation program with a private quote ledger</li>
+        <li>Guide Series Edition 2, updated with new submission data</li>
+        <li>Integrate SCWB landing page as the sanctuary layer partner</li>
+        <li>Establish co-promotion with aligned community organizations</li>
+        <li>Document community ROI for grant applications and 501(c)(3) positioning</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-label">Phase D · Entity Independence</div>
+      <div class="phase-title">WIP 501(c)(3)</div>
+      <div class="phase-time">Year 2 · Post-Grant</div>
+      <ul class="phase-items">
+        <li>Establish WIP as independent 501(c)(3) with its own governance</li>
+        <li>Guide series becomes a formal program with its own brand</li>
+        <li>Funnel becomes the onboarding pipeline for a Warrior member community</li>
+        <li>KCH retains consulting and licensing relationship as infrastructure operator</li>
+        <li>Hii Framework positioned as the architecture underlying the whole ecosystem</li>
+        <li>Institutional licensing model established for health systems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION V: METRICS -->
+<section id="metrics">
+  <div class="section-header">
+    <span class="label">Section V · Measurement</span>
+    <h2>What Winning Looks Like</h2>
+    <p class="mt-sm" style="font-size:1.05rem;">
+      Measure behavior, not reach. Downloads, guide opens, quick-card clicks, email-to-tracker
+      conversion, repeat tracker use, and partner referral source all matter more than impressions.
+    </p>
+  </div>
+
+  <div class="metric-rows">
+    <div class="metric-group">
+      <div class="metric-group-label">Lead Magnet Performance</div>
+      <div class="metric-scroll">
+      <table class="metric-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>What it tells us</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Landing page conversion rate</td>
+            <td>Is the offer resonating with the community?</td>
+            <td class="target">25 to 35%</td>
+          </tr>
+          <tr>
+            <td>Email open rate, welcome sequence</td>
+            <td>Is the welcome warm enough to earn attention?</td>
+            <td class="target">45%+</td>
+          </tr>
+          <tr>
+            <td>Guide to Crisis Log conversion, 30 days</td>
+            <td>Is the funnel completing its mission?</td>
+            <td class="target">15 to 25%</td>
+          </tr>
+          <tr>
+            <td>Quick ER Card clicks from the guide</td>
+            <td>Are Warriors reaching the practical layer, not just the essay?</td>
+            <td class="target">Baseline first quarter</td>
+          </tr>
+          <tr>
+            <td>Unsubscribe rate post-delivery</td>
+            <td>Did we attract the right Warrior, or just downloaders?</td>
+            <td class="target">&lt; 5%</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="metric-group">
+      <div class="metric-group-label">Platform Growth</div>
+      <div class="metric-scroll">
+      <table class="metric-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>What it tells us</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Crisis log submissions per month</td>
+            <td>Is the warmer platform converting more Warriors to contributors?</td>
+            <td class="target">+40% in 90 days</td>
+          </tr>
+          <tr>
+            <td>Warriors who log more than once</td>
+            <td>Longitudinal commitment, the core value of the platform. Currently 8 of 113.</td>
+            <td class="target">35% repeat rate</td>
+          </tr>
+          <tr>
+            <td>Email list size</td>
+            <td>Community reach beyond active submitters</td>
+            <td class="target">500 by Month 6</td>
+          </tr>
+          <tr>
+            <td>New states and countries represented</td>
+            <td>Geographic reach, derived from hospital names and area codes</td>
+            <td class="target">From 28 states, 6 countries</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="metric-group">
+      <div class="metric-group-label">Community and Institutional Impact</div>
+      <div class="metric-scroll">
+      <table class="metric-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>What it tells us</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Partner CBO orgs sharing the guide</td>
+            <td>Network effect, WIP as ecosystem hub rather than solo platform</td>
+            <td class="target">8+ by Month 6</td>
+          </tr>
+          <tr>
+            <td>Guide downloads, total</td>
+            <td>Community reach of the intelligence</td>
+            <td class="target">1,000 by Month 6</td>
+          </tr>
+          <tr>
+            <td>Institutional inquiries generated</td>
+            <td>Does the warmer platform open more institutional doors?</td>
+            <td class="target">Tracked, not targeted</td>
+          </tr>
+          <tr>
+            <td>Warrior retention rate, quarterly</td>
+            <td>Are Warriors staying in the community once welcomed in?</td>
+            <td class="target">60%+ at 90 days</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote mt-lg">
+    "A crisis is only recognized in the ED or on the hospital floor. Anything at home is anecdotal&mdash;as if we haven't been living in these bodies for the time our age reflects. We're stripped of our expertise as soon as we hit those hospital doors."
+    <cite>WIP Core Messaging · The Central Insight</cite>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">The Bottom Line</div>
+    <p>
+      The Warrior ER Survival Guide is not a side project. It is the proof that WIP can generate
+      institutional-grade intelligence AND deliver it back to the community as a tangible gift.
+      That dual motion, intelligence in and value out, is the engine of every phase that follows.
+      It is also the cleanest possible argument for the 501(c)(3): here is what community-owned
+      data infrastructure produces when it is operated with unreasonable hospitality.
+    </p>
+    <p>
+      The discipline added in September 2026 is part of that argument, not a tax on it. Every
+      figure traceable, every quote verbatim, every denominator shown. An organization that
+      corrects its own numbers before anyone else catches them is exactly the kind of
+      organization institutions can license data from.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">WARRIOR INTELLIGENCE PROJECT</div>
+  <div class="note">
+    WIP GROWTH BLUEPRINT · SEPTEMBER 2026<br>
+    KINDRED COMPASS HOLDINGS, LLC · INTERNAL STRATEGIC DOCUMENT
+  </div>
+</footer>

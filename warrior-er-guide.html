@@ -1,0 +1,1169 @@
+<title>Warrior ER Survival Guide</title>
+<style>
+  /* TOKENS */
+  :root {
+    --ground: #F0EDE4;
+    --surface: #FAF8F2;
+    --ink: #1A1614;
+    --ink-muted: #5C504A;
+    --gold: #9E6D00;
+    --gold-light: #F2E4C0;
+    --gold-border: #C8A040;
+    --accent: #8C3020;
+    --accent-light: #F8EDEA;
+    --cover-bg: #0F0C09;
+    --cover-ink: #F0EDE4;
+    --pull-bg: #F5E6BC;
+    --pull-ink: #1A1614;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Nunito', sans-serif;
+    --display: 'Cormorant Garamond', serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #100E0A;
+      --surface: #1A1612;
+      --ink: #EAE6DC;
+      --ink-muted: #9A8E80;
+      --gold: #C49830;
+      --gold-light: #1E1508;
+      --gold-border: #7A6020;
+      --accent: #C05040;
+      --accent-light: #1A0C0A;
+      --cover-bg: #080605;
+      --cover-ink: #EAE6DC;
+      --pull-bg: #1C1508;
+      --pull-ink: #EAE6DC;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #100E0A;
+    --surface: #1A1612;
+    --ink: #EAE6DC;
+    --ink-muted: #9A8E80;
+    --gold: #C49830;
+    --gold-light: #1E1508;
+    --gold-border: #7A6020;
+    --accent: #C05040;
+    --accent-light: #1A0C0A;
+    --cover-bg: #080605;
+    --cover-ink: #EAE6DC;
+    --pull-bg: #1C1508;
+    --pull-ink: #EAE6DC;
+  }
+
+  /* RESET */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.75;
+    background: var(--ground);
+    color: var(--ink);
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--cover-bg);
+    color: var(--cover-ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 64px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(168,120,30,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .cover-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(194,160,60,0.75);
+    margin-bottom: 48px;
+  }
+
+  .cover-title {
+    font-family: var(--display);
+    font-size: clamp(2.6rem, 7vw, 4.6rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--cover-ink);
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+
+  .cover-rule {
+    width: 64px;
+    height: 2px;
+    background: var(--gold-border);
+    margin: 28px auto;
+  }
+
+  .cover-subtitle {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(240,237,228,0.65);
+    max-width: 480px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .cover-practical {
+    font-size: 0.95rem;
+    color: rgba(240,237,228,0.5);
+    max-width: 460px;
+    line-height: 1.6;
+    margin-bottom: 60px;
+  }
+
+  .cover-community {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(194,160,60,0.55);
+    border-top: 1px solid rgba(194,160,60,0.18);
+    padding-top: 24px;
+    max-width: 560px;
+    width: 100%;
+  }
+
+  /* DATA BAND */
+  .data-band {
+    background: var(--gold-light);
+    border-top: 1px solid var(--gold-border);
+    border-bottom: 1px solid var(--gold-border);
+    padding: 28px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px 48px;
+  }
+
+  .data-item {
+    text-align: center;
+  }
+
+  .data-item .num {
+    font-family: var(--mono);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .data-item .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .band-note {
+    flex-basis: 100%;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+
+  /* PAGE BODY */
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* LETTER OPENER */
+  .letter {
+    padding: 80px 0 64px;
+    border-bottom: 1px solid var(--gold-border);
+  }
+
+  .letter-from {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .letter p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+
+  .letter p strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .letter-sign {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-top: 36px;
+  }
+
+  /* SECTION */
+  .guide-section {
+    padding: 80px 0;
+    border-bottom: 1px solid rgba(158,109,0,0.12);
+  }
+
+  .section-tag {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--gold-border);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-hook {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 24px;
+    padding-left: 20px;
+    border-left: 3px solid var(--gold-border);
+  }
+
+  .guide-section p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+
+  .guide-section p + p {
+    margin-top: 4px;
+  }
+
+  /* READING KEY */
+  .reading-key {
+    background: var(--surface);
+    border-left: 4px solid var(--gold-border);
+    border-radius: 0 8px 8px 0;
+    padding: 24px 28px;
+    margin: 36px 0;
+    max-width: 640px;
+  }
+
+  .reading-key-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .reading-key p {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .reading-key p:last-child { margin-bottom: 0 !important; }
+
+  /* PULL QUOTE */
+  .pull {
+    margin: 56px -32px;
+    background: var(--pull-bg);
+    border-top: 2px solid var(--gold-border);
+    border-bottom: 2px solid var(--gold-border);
+    padding: 40px 48px;
+  }
+
+  .pull-text {
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 2.7vw, 1.85rem);
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.42;
+    color: var(--pull-ink);
+    margin-bottom: 16px;
+  }
+
+  .pull-attr {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* DATA RECEIPT */
+  .receipt {
+    background: var(--surface);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin: 36px 0;
+    max-width: 580px;
+  }
+
+  .receipt-num {
+    font-family: var(--mono);
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .receipt-label {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  .receipt-label strong {
+    font-weight: 700;
+  }
+
+  .receipt-den {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(158,109,0,0.2);
+    display: block;
+  }
+
+  /* TRIGGER BLOCK */
+  .trigger {
+    background: var(--surface);
+    border-left: 4px solid var(--gold-border);
+    border-radius: 0 8px 8px 0;
+    padding: 28px 32px;
+    margin: 36px 0;
+  }
+
+  .trigger-name {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .trigger-name::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .trigger p {
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 10px !important;
+  }
+
+  .trigger-stat {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--gold);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gold-border);
+    line-height: 1.6;
+  }
+
+  /* HEADS UP */
+  .heads-up {
+    background: var(--accent-light);
+    border: 1px solid rgba(140,48,32,0.25);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 36px 0;
+    max-width: 620px;
+  }
+
+  .heads-up-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .heads-up p {
+    font-size: 0.95rem !important;
+    color: var(--ink) !important;
+    margin-bottom: 0 !important;
+    line-height: 1.65 !important;
+  }
+
+  /* CHECKLIST */
+  .checklist-intro {
+    font-family: var(--display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin: 40px 0 32px;
+    padding-left: 20px;
+    border-left: 3px solid var(--gold-border);
+    line-height: 1.55;
+  }
+
+  .checklist-attr {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+    display: block;
+    margin-top: 14px;
+  }
+
+  .check-group {
+    margin-bottom: 44px;
+  }
+
+  .check-group-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gold-border);
+    display: block;
+  }
+
+  .check-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+    max-width: 580px;
+  }
+
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--gold-border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    background: var(--surface);
+  }
+
+  .check-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .check-text strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .check-text span {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+
+  /* LANGUAGE CARDS */
+  .say-this {
+    background: var(--gold-light);
+    border: 1px solid var(--gold-border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 24px 0;
+    max-width: 620px;
+  }
+
+  .say-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .say-text {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  /* RIGHTS */
+  .right {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(158,109,0,0.12);
+    max-width: 620px;
+  }
+
+  .right:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .right-num {
+    font-family: var(--display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gold-border);
+    line-height: 1;
+    flex-shrink: 0;
+    opacity: 0.5;
+    margin-top: -6px;
+  }
+
+  .right-body h3 {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .right-body p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 8px !important;
+  }
+
+  .right-body .action {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+
+  /* PROVENANCE */
+  .provenance {
+    background: var(--surface);
+    border: 1px solid rgba(158,109,0,0.2);
+    border-radius: 8px;
+    padding: 40px;
+    margin: 56px 0 0;
+  }
+
+  .provenance h3 {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .provenance p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+    max-width: 560px;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--cover-bg);
+    color: var(--cover-ink);
+    padding: 96px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(168,120,30,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .cta-rule {
+    width: 48px;
+    height: 2px;
+    background: var(--gold-border);
+    margin: 0 auto 40px;
+  }
+
+  .cta-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--cover-ink);
+    margin-bottom: 24px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(240,237,228,0.65);
+    max-width: 480px;
+    margin: 0 auto 44px;
+  }
+
+  .cta-link {
+    display: inline-block;
+    background: var(--gold-border);
+    color: #0F0C09;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 2px;
+    font-weight: 700;
+    transition: opacity 0.2s;
+  }
+
+  .cta-link:hover { opacity: 0.85; }
+
+  /* FOOTER */
+  .guide-footer {
+    background: var(--cover-bg);
+    padding: 32px 40px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(240,237,228,0.3);
+    line-height: 2;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .page { padding: 0 20px; }
+    .pull { margin: 40px -20px; padding: 32px 24px; }
+    .data-band { padding: 24px 20px; gap: 24px 28px; }
+    .cover { padding: 48px 24px; }
+    .cta-section { padding: 72px 24px; }
+    .guide-footer { padding: 24px 20px; }
+    .provenance { padding: 28px 24px; }
+  }
+</style>
+
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Nunito:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- COVER -->
+<div class="cover">
+  <p class="cover-eyebrow">Warrior Intelligence Project · Community Edition</p>
+  <h1 class="cover-title">The Warrior ER Survival Guide</h1>
+  <div class="cover-rule"></div>
+  <p class="cover-subtitle">Built from your data. Written for the moment you need it most.</p>
+  <p class="cover-practical">Scripts, checklists, and documentation tools for getting through an ER visit with sickle cell disease.</p>
+  <p class="cover-community">145 Crisis Submissions · 113 Warriors · 28 U.S. States · 6 Countries · Community-Owned Data</p>
+</div>
+
+<!-- DATA BAND -->
+<div class="data-band">
+  <div class="data-item">
+    <span class="num">145</span>
+    <span class="label">Crisis submissions</span>
+  </div>
+  <div class="data-item">
+    <span class="num">113</span>
+    <span class="label">Warriors</span>
+  </div>
+  <div class="data-item">
+    <span class="num">77%</span>
+    <span class="label">In crisis at submission</span>
+  </div>
+  <div class="data-item">
+    <span class="num">72%</span>
+    <span class="label">Treated &amp; released, ineffectively</span>
+  </div>
+  <div class="data-item">
+    <span class="num">2&times;</span>
+    <span class="label">Better outcomes when admitted</span>
+  </div>
+  <div class="data-item">
+    <span class="num">21%</span>
+    <span class="label">Menstrual cycle among triggers</span>
+  </div>
+  <p class="band-note">Community-reported, December 2025 to September 2026. Denominators appear with each figure inside.</p>
+</div>
+
+<!-- LETTER OPENER -->
+<div class="page">
+  <div class="letter">
+    <p class="letter-from">A Note Before You Begin</p>
+    <p>You already know what it's like in that room. You've watched a nurse type while you talked. You've seen the look on a doctor's face when your chart didn't match their assumptions. You've managed your own pain while simultaneously managing their disbelief. You've done this exhausted, in crisis, alone.</p>
+    <p>This guide wasn't written by researchers who studied you from across a conference table. It was built from 145 crisis submissions logged by 113 of you in real time: your pain scores, your triggers, your ER visits, your patterns. You submitted data while you were still in it. That took something. And this is what we found.</p>
+    <p>What's in here isn't theory. It's pattern. Your pattern. Documented, analyzed, and handed back to you as a tool. Because you deserve to walk into that room knowing exactly what you know, exactly what you can ask for, and exactly what to say.</p>
+    <p><strong>Use whatever section you need, whenever you need it.</strong> Nothing in here requires reading start to finish. If you're sitting in a waiting room right now, go straight to Your Toolkit in Section 04. If you have time, read all of it, because the more you understand about the system you're navigating, the more power you carry into it.</p>
+    <p class="letter-sign">The Warrior Intelligence Project</p>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="page">
+  <div class="guide-section">
+    <div class="section-tag">
+      <span class="section-num">01 of 07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title">You Already Know This Pattern</h2>
+    <p class="section-hook">You show up in crisis. You answer the same questions you've answered a hundred times. And somehow, none of it connects to the last time you were here.</p>
+
+    <p>That's not a flaw in your communication. It's a structural problem in how emergency care treats sickle cell disease, as a series of isolated incidents rather than a continuous, evolving condition. Every ER visit starts from zero, as if yesterday didn't exist and tomorrow doesn't matter. But your body doesn't work that way.</p>
+
+    <p>SCD is a longitudinal disease (a condition that unfolds across a lifetime) living inside a system built for acute snapshots. The ER captures a moment. Your life is a trajectory. And right now, only one of you can see the full picture.</p>
+
+    <div class="reading-key">
+      <p class="reading-key-label">How to read the numbers in this guide</p>
+      <p>Every figure here is what Warriors reported about their own crises. They are patterns in lived experience, not clinical determinations, diagnoses, or medical advice.</p>
+      <p>Denominators differ because not every question applies to every Warrior, so each figure carries the count it was drawn from. And because this is live data, the numbers move as new crises are logged.</p>
+    </div>
+
+    <div class="pull">
+      <p class="pull-text">"Medical team made unnecessary changes to my routine. Medical team, at start of admission, low-balled me with 0.2 of IV dilaudid when I came in and said that my 2mg of oral Dilaudid was not helping."</p>
+      <p class="pull-attr">WIP Warrior · New York Presbyterian Queens</p>
+    </div>
+
+    <p>Of the crisis submissions logged with WIP, <strong>77% came from Warriors who were still in crisis at the moment they logged</strong>. Not recovering. Not looking back on one that had passed. In it. That means the data you're reading right now was typed by people in pain, because they wanted the next person to have something to hold onto.</p>
+
+    <div class="receipt">
+      <span class="receipt-num">6.1</span>
+      <p class="receipt-label">Average pain score at the moment of logging, on a 1 to 10 scale. The median was 7. That's not a mild complaint. That's a person in serious pain still trying to document their experience, which tells you something about why this community built this database in the first place.</p>
+      <span class="receipt-den">145 submissions · 112 of 145 still in crisis</span>
+    </div>
+
+    <p>The system's inability to see your pattern isn't just inconvenient. It actively costs you. When clinicians treat each visit as a new event, they miss escalation. They miss what's changed. They make decisions without context, and you're the one who pays for that gap.</p>
+
+    <p>WIP exists to close that gap. Your crisis log isn't just data. It's your history, submitted on your terms, building toward a future where your pattern is visible to you, to your care team, and eventually to the institutions making decisions about your care.</p>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="page">
+  <div class="guide-section">
+    <div class="section-tag">
+      <span class="section-num">02 of 07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title">What They Never Ask</h2>
+    <p class="section-hook">The triage questions weren't written for you. They were written for someone with a broken arm. Your triggers don't show up on a standard trauma screen, and almost no one in that building is looking for them.</p>
+
+    <p>But you already know what set this off. You probably knew before you walked through the door. The problem is that the clinical intake process wasn't designed to capture it, and what doesn't get captured doesn't get treated.</p>
+
+    <p>Here's what Warriors reported about the triggers that come up most, and the ones that get ignored:</p>
+
+    <div class="trigger">
+      <p class="trigger-name">Stress</p>
+      <p>Stress isn't just psychological for people with SCD. It was the single most common factor Warriors recorded in the 24 to 48 hours before a crisis, ahead of everything else including cold.</p>
+      <p>The stress of being dismissed in an ER waiting room is not separate from the crisis you came in with. You can name that in the room, and naming it changes the conversation.</p>
+      <p class="trigger-stat">55% recorded a high stress situation among their triggers. 80 of 145 submissions.</p>
+    </div>
+
+    <div class="trigger">
+      <p class="trigger-name">Cold and Temperature Change</p>
+      <p>It's not only how cold it is. It's the change. Moving from a warm car into an air-conditioned waiting room can trigger vasoconstriction (narrowing of blood vessels) faster than your body can compensate. Clinical staff see air conditioning as comfort. Your vascular system may experience it differently.</p>
+      <p>Cold weather exposure was the second most common factor Warriors recorded, and it almost never appears in the intake question set.</p>
+      <p class="trigger-stat">51% recorded cold weather exposure among their triggers. 74 of 145 submissions. 7 in 10 crisis reports came from a location below 70&deg;F, with a median of 57&deg;F. 132 submissions reporting temperature.</p>
+    </div>
+
+    <div class="trigger">
+      <p class="trigger-name">Menstrual Cycle</p>
+      <p>About one in five WIP submissions recorded the menstrual cycle among the triggers in the 24 to 48 hours before the crisis. It is not the largest trigger in this data. It is the one the system is not looking for at all, which is what makes it worth naming out loud.</p>
+      <p>SCD research has historically underrepresented women. The research infrastructure that informs clinical protocols was built largely without them. So the clinical staff you're talking to may have never encountered this connection in their training, and standard ER intake does not ask the question.</p>
+      <p class="trigger-stat">21% recorded the menstrual cycle among their triggers. 31 of 145 submissions. Among the 73 Warriors who narrowed to the factors most connected to their crisis, 15% named it.</p>
+    </div>
+
+    <div class="pull">
+      <p class="pull-text">"This crisis started due to very severe menstrual cramps and while I chose high stress situation as the trigger you should have that as an option..."</p>
+      <p class="pull-attr">WIP Warrior · St. David's Round Rock, TX</p>
+    </div>
+
+    <p>When you're in the room, name your trigger before they ask for your pain number. Trigger context changes the clinical picture. "I think this was set off by temperature change about two hours ago" is more useful information than a pain score alone, and it gives a clinician who actually wants to help something to work with.</p>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="page">
+  <div class="guide-section">
+    <div class="section-tag">
+      <span class="section-num">03 of 07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title">The Room</h2>
+    <p class="section-hook">You know what it feels like to walk into an ER already braced. Already preparing your case. Already ready to be doubted. That's not paranoia. It's pattern recognition earned through experience.</p>
+
+    <p>What Warriors reported confirms what you've already lived. Emergency departments are not, structurally, built for sickle cell care. The gaps show up in the data.</p>
+
+    <div class="receipt">
+      <span class="receipt-num">72%</span>
+      <p class="receipt-label"><strong>Of Warriors who were treated and released rated their treatment as working "a little" or "not at all."</strong> They left in pain. Not because they didn't communicate it. Because the response didn't match what they reported.</p>
+      <span class="receipt-den">21 of 29 treated and released</span>
+    </div>
+
+    <div class="receipt">
+      <span class="receipt-num">2&times;</span>
+      <p class="receipt-label"><strong>Warriors who were admitted were about twice as likely to report their treatment was working:</strong> 57% of those admitted, against 28% of those treated and released. The difference between going home and staying was, for many, the difference between adequate and inadequate treatment.</p>
+      <span class="receipt-den">35 admitted · 29 treated and released</span>
+    </div>
+
+    <p>There's another layer to this. A 2016 study published in PNAS found that a significant share of medical students and residents held false beliefs about biological differences in pain sensitivity between Black and white patients, and that those beliefs tracked with undertreated pain recommendations. SCD affects Black Americans at disproportionate rates. The math on this matters.</p>
+
+    <div class="heads-up">
+      <p class="heads-up-label">This Is Happening. A Warrior Reported It Directly</p>
+      <p>"Both times they have sent me home because my retic count didn’t show I was in a crisis after I begged them to admit me. The admitting doctors excuse was the pca pump is for serious crisis and she doesn’t want me to get addicted to the morphine in the pca pump so she’s not going to admit me and if my crisis gets worse to just come back to the ER." <em>WIP Warrior</em></p>
+    </div>
+
+    <p>If you're being asked to rate your pain and feel it's being minimized, you have options beyond repeating the number. Ask: <em>"I want to note in my chart that I feel my pain level has not been adequately addressed."</em> This creates a documented record without confrontation, and gives a clinician who wants to help a clear path to do so.</p>
+
+    <p>Of the Warriors who reported having a pain protocol, about a third said the ER did not follow it. That means even when a standard exists, it isn't consistently applied. Knowing what you can ask for, which we cover in Section 05, is part of how you close that gap in real time.</p>
+
+    <div class="receipt">
+      <span class="receipt-num">32%</span>
+      <p class="receipt-label"><strong>Reported that their pain protocol was not followed.</strong> Where a reason was given, the most common one was that the medical team chose not to follow it.</p>
+      <span class="receipt-den">26 of the 81 Warriors who reported having a protocol</span>
+    </div>
+
+    <div class="pull">
+      <p class="pull-text">"I hate being treated as an addict rather than a patient"</p>
+      <p class="pull-attr">WIP Warrior · New York Presbyterian Brooklyn Methodist · Pain level reported: 10</p>
+    </div>
+
+    <p>None of this means every clinician in that room is working against you. Many aren't. Some are genuinely trying. But the system they're operating inside wasn't designed for you, which means the responsibility of filling the gaps has often landed on the person already in crisis. That's not right. And this guide is part of how we start changing it.</p>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="page">
+  <div class="guide-section">
+    <div class="section-tag">
+      <span class="section-num">04 of 07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title">Your Toolkit</h2>
+    <p class="section-hook">This is the practical section. The one you might read in the parking lot before you walk in. Keep it. Reference it. Share it.</p>
+
+    <p class="checklist-intro">"I’m still medicating at home &amp; resting when I can, it’s easing up slowly. I’m just thankful I can walk and move without crying which is why I returned to work. I’m a single parent of 3 and I don’t want to make things worse but my part time job feeds us, so I can’t afford to keep missing work. I feel lost."
+      <span class="checklist-attr">WIP Warrior · In crisis at time of submission</span>
+    </p>
+
+    <p>That's why this section exists. Not to tell you what you're doing wrong, but to hand you tools built from the patterns of Warriors who've had to figure this out the hard way, while already in pain.</p>
+
+    <div class="check-group">
+      <span class="check-group-label">Before You Walk In</span>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Bring your crisis history</strong>
+          <span>Previous hospitalizations, effective pain protocols, medications that have worked. Written or screenshot, whatever you have access to.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Know your baseline</strong>
+          <span>Your normal pain level, your typical crisis presentation, how long your crises usually last. This context is invisible to a new clinician without it.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Document your trigger if you know it</strong>
+          <span>Temperature change, cycle timing, stress, dehydration. The more specific you can be, the more useful your chart becomes.</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Bring a support person if possible</strong>
+          <span>Someone who can document what's said, ask questions when you can't, and advocate when you're in too much pain to.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <span class="check-group-label">In the Room</span>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>State your condition and your trigger first</strong>
+          <span>Vaso-occlusive crisis (a pain crisis caused by blocked blood flow) is the clinical term for what you're in. Use it: "I have sickle cell disease and I'm in a vaso-occlusive crisis. This started approximately [time] after [trigger]."</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Ask for your effective protocol by name</strong>
+          <span>If you've been treated effectively before, say so: "The last time this was managed well, the protocol was [X]. Can we discuss that as a starting point?"</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Ask whether a hematology consult is appropriate</strong>
+          <span>A hematologist is a blood disorder specialist. You can ask, and you can ask for the answer to be written down: "Can you note in my chart that I asked whether hematology should be consulted, and what the response was?"</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Request that pain management decisions be documented</strong>
+          <span>If your pain isn't being addressed, you can ask: "Can we document in my chart that I've reported my pain as unmanaged?"</span>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>Write down names and times</strong>
+          <span>Every clinician you speak to, every medication offered or refused, every major decision. You may need this later.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <span class="check-group-label">Language That Works. Use These Exactly</span>
+
+      <div class="say-this">
+        <span class="say-label">When introducing yourself at triage</span>
+        <p class="say-text">"I have sickle cell disease, hemoglobin SS. I was born with this condition and I know my body. I'm in a vaso-occlusive crisis right now. My pain is currently [number] out of 10. This started [timeframe] after [trigger, if you know it]. I'd like to talk about a treatment protocol that has worked for me in past crises."</p>
+      </div>
+
+      <div class="say-this">
+        <span class="say-label">When your pain isn't being addressed</span>
+        <p class="say-text">"I want to make sure this is reflected in my chart: my pain remains at [number] and I don't feel it's been adequately managed. I'd like to speak with someone about adjusting the protocol."</p>
+      </div>
+
+      <div class="say-this">
+        <span class="say-label">When you feel dismissed</span>
+        <p class="say-text">"I understand you're working with limited information. I've documented my crisis history and I'm happy to share it. Can we take five minutes to review what's worked in past episodes before making a decision?"</p>
+      </div>
+
+      <div class="say-this">
+        <span class="say-label">Before discharge, any discharge</span>
+        <p class="say-text">"Before I leave, can you walk me through the plan for going home? I want to understand the discharge criteria, what medication or follow-up I should expect, and when to come back if the pain worsens."</p>
+      </div>
+
+      <div class="say-this">
+        <span class="say-label">Before discharge, when your pain is still high</span>
+        <p class="say-text">"My pain is still [number] out of 10 and I don't feel it's adequately controlled. Can you document my concern and explain the follow-up plan?"</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="page">
+  <div class="guide-section">
+    <div class="section-tag">
+      <span class="section-num">05 of 07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title">What You Can Ask For</h2>
+    <p class="section-hook">Some of this you request. Some of it you're already entitled to. Knowing which is which is what changes how you carry yourself in the room, and what you do after you leave.</p>
+
+    <p>A request is not a guarantee. Asking for a specific medication, a specific protocol, or a specialist does not oblige anyone to provide it. What asking does do, when you also ask for it to be written down, is create a record. Records are what make a pattern visible, and a pattern is far harder to dismiss than a single bad night.</p>
+
+    <div class="right">
+      <span class="right-num">01</span>
+      <div class="right-body">
+        <h3>A medical screening exam, regardless of ability to pay</h3>
+        <p>Under EMTALA (the Emergency Medical Treatment and Labor Act), hospitals with emergency departments that participate in Medicare must provide a medical screening examination to anyone who comes in requesting care, and must stabilize an emergency medical condition before transfer or discharge, regardless of insurance or ability to pay.</p>
+        <p class="action">If you believe you were not screened or stabilized appropriately, ask for the hospital's patient advocate, and ask about the complaint process. EMTALA concerns can be raised with CMS (Centers for Medicare &amp; Medicaid Services).</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <span class="right-num">02</span>
+      <div class="right-body">
+        <h3>Pain assessed, and reassessed</h3>
+        <p>Accreditation standards require hospitals to assess and reassess pain, and to involve patients in setting goals for managing it. That does not mean a clinician must accept your number without discussion. It does mean the assessment should happen, and that you can ask for your reported pain, and your concern about it, to appear in the record.</p>
+        <p class="action">If pain is being dismissed, ask for the charge nurse. Ask what the hospital's protocol is for vaso-occlusive crisis specifically, and ask for the answer to be documented.</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <span class="right-num">03</span>
+      <div class="right-body">
+        <h3>Access to your medical records</h3>
+        <p>Under HIPAA you have the right to inspect and obtain a copy of your own medical records. Providers generally must respond within 30 days, though many can give you a visit summary much sooner if you ask before you leave. This is your history. It belongs to you.</p>
+        <p class="action">After your visit, request a copy of the visit summary and nursing notes. Compare what was documented to what actually happened.</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <span class="right-num">04</span>
+      <div class="right-body">
+        <h3>A formal grievance process</h3>
+        <p>Hospitals participating in Medicare are required to have a patient grievance process. If you were treated in a way that felt discriminatory, dismissive, or negligent, you can file a formal complaint, and the hospital is required to respond to you in writing.</p>
+        <p class="action">Ask for the Patient Relations or Patient Advocate department. Request the hospital's grievance form. Keep a copy of everything.</p>
+      </div>
+    </div>
+
+    <div class="right">
+      <span class="right-num">05</span>
+      <div class="right-body">
+        <h3>Civil rights protection if you experienced discrimination</h3>
+        <p>If you believe race was a factor in how your pain was treated, or wasn't treated, the Office for Civil Rights at the Department of Health and Human Services accepts complaints about discrimination by providers that receive federal funding.</p>
+        <p class="action">File at hhs.gov/ocr. Document dates, times, names of staff, and specific statements made. WIP can help you document patterns over time.</p>
+      </div>
+    </div>
+
+    <div class="pull">
+      <p class="pull-text">"I stay in a very rural area, the hospital staff feels as if they can do as they please without any repercussions."</p>
+      <p class="pull-attr">WIP Warrior</p>
+    </div>
+
+    <p>This is exactly what these processes exist to address. A grievance, a documented complaint, an OCR filing: none of them fix the night you just had. What they do is create a formal record. One record is a complaint. Many records, from many Warriors, across many hospitals, is evidence. That's the whole idea behind WIP.</p>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="page">
+  <div class="guide-section">
+    <div class="section-tag">
+      <span class="section-num">06 of 07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2 class="section-title">How We Built This</h2>
+    <p class="section-hook">You didn't just read a guide written about your community. You're reading one built by it.</p>
+
+    <p>The Warrior Intelligence Project is a community-owned crisis intelligence platform for people living with sickle cell disease. Everything in this guide, the statistics, the trigger patterns, the outcome gaps, came from Warriors who submitted real-time crisis data on their own terms, under their own governance.</p>
+
+    <p>WIP is not a research institution. We are not licensed to provide medical advice, and nothing in this guide should replace your relationship with a healthcare provider. What we are is a data infrastructure, the kind that generates community-grade evidence from lived experience and puts it back in the hands of the people who made it.</p>
+
+    <p>This edition draws on 145 crisis submissions from 113 Warriors across 28 U.S. states and 6 countries, from hospitals in Gulfport, Mississippi to Hangzhou, China; from Abington, Pennsylvania to Meilahti, Helsinki. Because every submission is anonymous, we work out where they come from using the hospital a Warrior names and the area code of the number they give for check-ins, and nothing else. It is not a clinical trial. It is not peer-reviewed. But it is real, it is documented, and it comes from the people who know this disease the way no study could fully capture, from the inside, in the middle of it.</p>
+
+    <p>A related abstract, "Warrior Intelligence: A Community-Led Navigation Infrastructure for Real-Time Sickle Cell Crisis Data and Clinical Blind Spot Detection," was published in the <em>Journal of Sickle Cell Disease</em> in June 2026, covering an earlier window of this same dataset.</p>
+
+    <div class="pull">
+      <p class="pull-text">"This is great that we can track our crisis. I am also blown away by the option to have people check on us in 24 hours because some of us Warriors don't necessarily have a support system so to have other Warriors that can identify with what each other is going through reach out to one another is amazing."</p>
+      <p class="pull-attr">WIP Warrior · Abington Memorial Hospital, PA</p>
+    </div>
+
+    <p>"This is a very good innovation. We need something more than this to help other warriors out there" <em>WIP Warrior · Meilahti Hospital, Helsinki, Finland</em></p>
+
+    <p>That's what we're building.</p>
+
+    <div class="provenance">
+      <h3>What This Data Is, And Isn't</h3>
+      <p>This guide is informed by community-submitted crisis data collected through the WIP platform. Data is governed by a community data governance council. Warriors retain ownership of their submissions, and every Warrior quoted here consented to their anonymous responses being used in community materials.</p>
+      <p>This guide is not medical advice and it is not legal advice. Triggers, patterns, and statistics represent community experience, not clinical standards of care. Use this guide to inform conversations with your care team, not to replace them.</p>
+      <p>Because the tracker is live, these figures change as new crises are logged. The counts here reflect the dataset as of September 2026.</p>
+      <p>WIP operates under the strategic and institutional umbrella of Kindred Compass Holdings. Questions about the WIP platform and data governance can be directed to warriorintelligenceproject.org.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-rule"></div>
+  <h2 class="cta-title">Your crisis is the next page of this guide.</h2>
+  <p class="cta-body">Every submission makes this guide more accurate, more specific, and more useful, for you and for every Warrior who comes after. Log your crisis. Add your data. Be part of what we're building.</p>
+  <a href="https://warriorintelligenceproject.org" class="cta-link">Log Your Crisis at WIP</a>
+</div>
+
+<!-- FOOTER -->
+<div class="guide-footer">
+  Warrior Intelligence Project · warriorintelligenceproject.org<br>
+  A Kindred Compass Holdings Initiative · Community-Owned Data<br>
+  This guide does not constitute medical or legal advice · All data community-governed and Warrior-owned
+</div>
