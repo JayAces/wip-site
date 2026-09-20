@@ -30,6 +30,14 @@ function findEmail(fields) {
   return byLabel ? byLabel.value : null;
 }
 
+function findFirstName(fields) {
+  if (!Array.isArray(fields)) return null;
+  const byLabel = fields.find(
+    (f) => f && typeof f.label === 'string' && /first\s*name/i.test(f.label) && f.value
+  );
+  return byLabel ? byLabel.value : null;
+}
+
 function verifySignature(rawBody, signatureHeader) {
   if (!TALLY_SIGNING_SECRET) return true; // no secret configured, skip check
   if (!signatureHeader) return false;
@@ -83,8 +91,31 @@ exports.handler = async (event) => {
     );
     return { statusCode: 400, body: 'No email found in submission' };
   }
+  const firstName = findFirstName(payload && payload.data && payload.data.fields);
 
   try {
+    // Kit's "tag a subscriber by email" endpoint requires the subscriber to
+    // already exist - it does NOT create new subscribers. Upsert them first
+    // (this is a safe no-op if they already exist) so first-time submitters
+    // don't fail to get tagged.
+    const upsertBody = { email_address: email };
+    if (firstName) upsertBody.first_name = firstName;
+
+    const subscriberRes = await fetch('https://api.kit.com/v4/subscribers', {
+      method: 'POST',
+      headers: {
+        'X-Kit-Api-Key': KIT_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(upsertBody),
+    });
+
+    if (!subscriberRes.ok) {
+      const text = await subscriberRes.text();
+      console.error('tally-to-kit: failed to create/update Kit subscriber', subscriberRes.status, text);
+      return { statusCode: 502, body: 'Failed to create subscriber in Kit' };
+    }
+
     const tagsRes = await fetch('https://api.kit.com/v4/tags', {
       headers: { 'X-Kit-Api-Key': KIT_API_KEY },
     });
