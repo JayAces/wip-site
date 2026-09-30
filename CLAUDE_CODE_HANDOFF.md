@@ -1,3 +1,8 @@
+> **Historical note (May 2026). Read before using this file.** The figures, counts and copy rules below are out of date.
+> Current figures: `wip-source-of-truth-figures.md` in the Strategic Communications project (148 crisis submissions, 100+ Warriors, September 19, 2026 export).
+> Current deploy process: `DEPLOY.md`. `git push` to `main` publishes the live site. Never commit `.env.local`.
+> Do not push changes from any tool without reviewing the diff.
+
 # Warrior Intelligence Project — Claude Code Handoff
 ## Next.js Build + Asset Integration + Vercel Deploy
 **Date:** May 29, 2026  

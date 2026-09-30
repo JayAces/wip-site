@@ -3,3 +3,6 @@ node_modules
 _archive
 
 .env.local
+
+# Local Netlify folder
+.netlify
