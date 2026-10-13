@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Waiting Room</title>
+<meta name="theme-color" content="#EFE8DA">
+<!--
+  You read the source. Of course you did.
+  The door was never locked. It just wasn't open yet.
+  Waiting is a room. Rooms can be entered.
+  — J.R.M.
+-->
+<style>
+  :root{
+    --bone:#EFE8DA; --bone-deep:#E4DAC6; --oxblood:#5A1A1F; --ink:#2A1517; --muted:#7A5C5A; --gold:#B8862B;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bone); color:var(--ink);
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:100vh; padding:24px 16px 56px; text-align:center; position:relative; overflow-x:hidden;
+  }
+  body::before{ /* a slow wash of light from under the door */
+    content:""; position:fixed; left:50%; bottom:-30vh; width:90vw; height:60vh; transform:translateX(-50%);
+    background:radial-gradient(ellipse at center, rgba(184,134,43,.22), rgba(184,134,43,0) 65%);
+    animation:glow 9s ease-in-out infinite alternate; pointer-events:none;
+  }
+  @keyframes glow{from{opacity:.35}to{opacity:1}}
+
+  main{position:relative; max-width:34rem; width:100%}
+  .eyebrow{font:600 11px/1 system-ui,sans-serif; letter-spacing:.32em; text-transform:uppercase; color:var(--muted); margin:0 0 28px}
+
+  /* Title: two layers share one cell. "Waiting" gets struck, then the whole line resolves. */
+  h1{margin:0; display:grid; font-weight:400; font-size:clamp(34px,8vw,58px); line-height:1.1; letter-spacing:-.01em; color:var(--oxblood)}
+  h1 span{grid-area:1/1}
+  .a{animation:fadeout .9s ease 4.2s forwards}
+  .a s{text-decoration:none; position:relative; display:inline-block}
+  .a s::after{content:""; position:absolute; left:-2%; top:54%; height:2px; width:0; background:var(--oxblood); animation:strike .7s ease 2.8s forwards}
+  .b{opacity:0; animation:fadein 1.2s ease 4.6s forwards; font-style:italic}
+  @keyframes strike{to{width:104%}}
+  @keyframes fadeout{to{opacity:0}}
+  @keyframes fadein{to{opacity:1}}
+
+  .rule{width:42px; height:1px; background:var(--oxblood); opacity:.5; margin:30px auto}
+  .line{margin:0 0 10px; font-size:18px; line-height:1.6; color:var(--ink)}
+  .line.small{font-size:15px; color:var(--muted)}
+  .motto{font-style:italic; color:var(--oxblood)}
+
+  /* The knock */
+  .knock{
+    appearance:none; background:none; border:0; cursor:pointer; margin:34px auto 6px; padding:10px; display:block; color:var(--oxblood);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .knock svg{width:46px; height:64px; display:block; overflow:visible}
+  .knock .fr,.knock .lf{fill:none; stroke:currentColor; stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round}
+  .knock .li{fill:var(--gold); opacity:.55; transition:opacity .5s}
+  .knock .kb{fill:currentColor}
+  .knock:hover .li,.knock:focus-visible .li{opacity:1}
+  .knock:focus-visible{outline:1px dashed var(--oxblood); outline-offset:6px; border-radius:4px}
+  .knock.rap svg{animation:rap .28s ease}
+  @keyframes rap{0%{transform:translateX(0)}25%{transform:translateX(-2px)}50%{transform:translateX(2px)}100%{transform:translateX(0)}}
+  .answer{min-height:1.6em; margin:0; font-size:15px; font-style:italic; color:var(--oxblood); opacity:0; transition:opacity 1s}
+  .answer.on{opacity:1}
+
+  footer{position:absolute; left:0; right:0; bottom:18px; font:12px/1.6 system-ui,sans-serif; color:var(--muted)}
+  footer a{color:var(--oxblood); text-decoration:underline; text-underline-offset:3px}
+  footer .by{display:block; margin-top:4px; opacity:.8}
+
+  @media (prefers-reduced-motion: reduce){
+    body::before{animation:none; opacity:.7}
+    .a{display:none}
+    .b{opacity:1; animation:none}
+    .knock.rap svg{animation:none}
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Canvas &amp; Courage</p>
+
+  <h1 aria-label="Room to Be">
+    <span class="a" aria-hidden="true">The <s>Waiting</s> Room</span>
+    <span class="b" aria-hidden="true">Room to Be</span>
+  </h1>
+
+  <div class="rule" aria-hidden="true"></div>
+
+  <p class="line motto">Our Lives. Our Art. Our Voice.</p>
+  <p class="line">Art, testimony, memory, and care.</p>
+  <p class="line small">Closed for now. Opening slowly.</p>
+
+  <button class="knock" id="knock" type="button" aria-label="Knock on the door">
+    <svg viewBox="0 0 46 64" aria-hidden="true" focusable="false">
+      <path class="fr" d="M6 60V6h34v54"/>
+      <path class="lf" d="M6 60 28 55V12L6 6"/>
+      <path class="li" d="M28 12 40 6V60L28 55Z"/>
+      <circle class="kb" cx="22" cy="34" r="1.8"/>
+    </svg>
+  </button>
+  <p class="answer" id="answer" aria-live="polite"></p>
+</main>
+
+<footer>
+  <a href="/">Back to Warrior Intelligence Project</a>
+  <span class="by">Made by Jason Robert Moore</span>
+</footer>
+
+<script>
+(function(){
+  // The title does what the page does: waits, then resolves.
+  setTimeout(function(){ document.title = "Room to Be"; }, 4800);
+
+  var n = 0, btn = document.getElementById('knock'), out = document.getElementById('answer'), done = false;
+  btn.addEventListener('click', function(){
+    btn.classList.remove('rap'); void btn.offsetWidth; btn.classList.add('rap');
+    n++;
+    if(n === 3 && !done){
+      done = true;
+      out.textContent = "Someone heard you. Come back when the light's on.";
+      out.classList.add('on');
+    }
+  });
+})();
+</script>
+</body>
+</html>
